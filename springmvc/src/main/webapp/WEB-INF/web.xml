@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<!-- 定义了WEB应用的名字 -->
+	<display-name>springmvc-shop</display-name>
+	<!-- 声明WEB应用的描述信息 -->
+	<description>springmvc shop</description>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/META-INF/spring/**/*.xml</param-value>
+	</context-param>
+	
+	<!-- listener可以不存在 ，不存在不加载contextConfigLocation里面的bean
+	Spring MVC在Web容器中的启动类，负责Spring IoC容器在Web上下文中的初始化
+	启动Web容器时，自动装配ApplicationContext的配置信息-->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- 自定义listener，放在springlistener后面方便使用springbean，也可以使用bean加载过程方法，详见类InitSelfDataByBeanPostProcessor
+		 初始化加载一些常用变量数据到缓存中 ，本程序采用InitSelfDataByBeanPostProcessor中的方法-->
+	<!-- <listener>
+		<listener-class>com.study.springmvc.controller.common.InitSelfDataByServletContextListener</listener-class>
+	</listener> -->
+
+	<!-- 初始化 DispatcherServlet 时，该框架在 web 应用程序WEB-INF 目录中寻找一个名为[servlet-名称]-servlet.xml的文件，
+		并在那里定义相关的Beans，重写在全局中定义的任何Beans，像上下的web.xml中的代码，对应的是appServlet-servlet.xml；
+		当然也可以使用<init-param>元素，手动指定配置文件的路径 -->
+	<servlet>
+		<servlet-name>springmvcServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- servlet范围内的参数，只能在servlet的init()方法中取得,参数只能在servlet的init()方法中通过this.getInitParameter("param1")取得
+		     init-param始化一个变量，可看成全局变量，可省略 -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+		</init-param>
+		<!-- 指定当Web应用启动时，装载Servlet的次序。   
+                                 当值为正数或零时：Servlet容器先加载数值小的servlet，再依次加载其他数值大的servlet.   
+                                 当值为负或未定义：Servlet容器将在Web客户首次访问这个servlet时加载它 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- <servlet-mapping>元素在Servlet和URL样式之间定义一个映射，即servlet类提供一个url，在地址栏输入对应的映射路径就可以访问你的servlet -->
+	<servlet-mapping>
+		<servlet-name>springmvcServlet</servlet-name>
+		<!-- 如果某个Servlet的映射路径仅仅为一个正斜杠（/），那么这个Servlet就成为当前Web应用程序的缺省Servlet 凡是在web.xml文件中找不到匹配的<servlet-mapping>元素的URL，它们的访问请求都将交给缺省Servlet处理，也就是说，缺省Servlet用于处理所有其他Servlet都不处理的访问请求 -->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<!-- 会话超时配置（单位为分钟） -->
+	<session-config>
+		<session-timeout>120</session-timeout>
+	</session-config>
+	
+	<error-page>
+		<exception-type>java.lang.NullException</exception-type>
+		<location>/error/error.jsp</location>
+	</error-page>
+   <filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	 <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error/error.jsp</location>
+    </error-page>
+</web-app>
