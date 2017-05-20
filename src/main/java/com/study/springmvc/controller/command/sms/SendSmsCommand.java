@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.util.StringUtils;
 
 import com.study.springmvc.common.constant.sms.SmsType;
 import com.study.springmvc.common.constant.user.CertificateType;
@@ -34,6 +35,9 @@ public class SendSmsCommand {
 	private String remark;
 	
 	public Long getMobile(){
-		return Long.parseLong(this.mobile);
+		if(!StringUtils.isEmpty(this.mobile)){
+			return Long.parseLong(this.mobile);
+		}
+		return null;
 	}
 }

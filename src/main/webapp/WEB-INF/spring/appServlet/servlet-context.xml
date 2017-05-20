@@ -42,9 +42,11 @@
 		<!-- <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>  -->
 	</context:component-scan>
 	
+	<beans:bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
+	
+	<!-- 捕获非controller中抛出的异常 -->
 	<beans:bean class="com.study.springmvc.controller.common.AllExceptionHandlerResolver">  
 	    <!-- <beans:property name="defaultErrorView" value="error/500"/> 错误页面  
 	    <beans:property name="exceptionAttribute" value="ex"/>   -->
 	</beans:bean>
-	
 </beans:beans>

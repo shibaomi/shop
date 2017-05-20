@@ -20,9 +20,14 @@ public class BaseController implements ResponseBodyAdvice<Object> {
 			Class<? extends HttpMessageConverter<?>> selectedConverterType,
 			ServerHttpRequest request, ServerHttpResponse response) {
 		log.debug("请求返回数据类型class="+selectedConverterType.getName());
-		JsonResult result=new JsonResult();
-		if(null!=body&&!"".equals(body)){
-			result.setData(body);
+		JsonResult result=null;
+		if(body instanceof JsonResult){
+			result=(JsonResult)body;
+		}else{
+			result=new JsonResult();
+			if(null!=body&&!"".equals(body)){
+				result.setData(body);
+			}
 		}
 		return result;
 	}

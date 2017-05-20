@@ -29,10 +29,7 @@ public class SmsController {
 	 */
 	@RequestMapping(value = "/code")
 	@ResponseBody
-	public SendSmsDto sendMessage(@Valid @RequestBody SendSmsCommand command,BindingResult result) {
-		if(result.hasErrors()){
-			System.out.println(result.getAllErrors());
-		}
+	public SendSmsDto sendMessage(@RequestBody @Valid SendSmsCommand command) {
 		return smsService.sendMessage(command);
 	}
 	

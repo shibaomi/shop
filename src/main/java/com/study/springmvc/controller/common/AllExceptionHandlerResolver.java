@@ -14,7 +14,7 @@ import com.study.springmvc.common.utils.JackJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 统一异常处理，包括ajax请求
+ * 统一异常处理，包括ajax请求(只捕获未进入controller只的异常，controller中的异常由ControllerExceptionAdvice捕捉)
  */
 @Slf4j
 public class AllExceptionHandlerResolver extends SimpleMappingExceptionResolver {
@@ -75,3 +75,4 @@ public class AllExceptionHandlerResolver extends SimpleMappingExceptionResolver 
 		return result;
 	}
 }
+
