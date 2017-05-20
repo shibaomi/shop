@@ -16,7 +16,7 @@
 	<!-- 设置代理类型，JDK和CGLIB，一种是基于接口的，一种是基于类的，proxy-target-class为true，则使用基于类的cglib的方式，相反，如果没有写或者是false则通过jdk的基于接口的方式生成代理类 
 		测试的时候如果报 java.lang.ClassCastException: com.sun.proxy.$Proxy11 cannot be cast 
 		to错误，则说明代理类型错误 -->
-	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<aop:aspectj-autoproxy proxy-target-class="false" />
 	<!-- 声明使用注解式事务 -->
 	<tx:annotation-driven transaction-manager="txManager" />
 
@@ -49,7 +49,6 @@
 			<tx:method name="add*" propagation="REQUIRED" rollback-for="Exception" />
 			<tx:method name="store*" propagation="REQUIRED"
 				rollback-for="Exception" />
-			<tx:method name="testService" timeout="3"/>
 		</tx:attributes>
 	</tx:advice>
 

@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.study.springmvc.common.db.page.QueryCondition;
 import com.study.springmvc.common.utils.Page;
+import com.study.springmvc.controller.command.FastRegisterCommand;
 import com.study.springmvc.dal.model.UserModel;
+import com.study.springmvc.dal.model.sms.SmsFlowModel;
 import com.study.springmvc.service.faces.UserService;
 
 @Controller
@@ -19,32 +22,12 @@ public class UserController {
 	private UserService userService;
 	
 	/***
-	 * 用户信息分页查询
-	 * @return
+	 * 手机快速注册
 	 */
-	@RequestMapping(value = "queryPageUser")
+	@RequestMapping(value = "/{mobile}/last_verify_code")
 	@ResponseBody
-	public Page<UserModel> queryPageUserModel(@RequestBody QueryCondition query) {
-		Page<UserModel> page=userService.queryPageUserModel(query);
-		return page;
-	}
-	
-	/***
-	 * 用户信息删除,根据系统参数配置的isDeleteUser决定是物理删除还是软删除
-	 */
-	@RequestMapping(value = "deleteUser/{userId}")
-	@ResponseBody
-	public void deleteUserModel(@PathVariable(required=true) Long userId) {
-		userService.deleteUserById(userId);
-	}
-	
-	/***
-	 * 新增修改用户信息
-	 */
-	@RequestMapping(value = "saveOrUpdateUserModel")
-	@ResponseBody
-	public Long saveOrUpdateUserModel(@RequestBody UserModel userModel) {
-		return userService.saveOrUpdateUserModel(userModel);
+	public void verifyCode(@PathVariable("mobile") Long mobile) {
+//		smsService.getLastEffectiveSmsInfoByMobile(mobile);
 	}
 	
 }

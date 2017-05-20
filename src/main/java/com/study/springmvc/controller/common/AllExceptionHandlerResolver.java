@@ -71,7 +71,7 @@ public class AllExceptionHandlerResolver extends SimpleMappingExceptionResolver 
 		result.setStatus("fail");
 		result.setMessage(ex.getMessage());
 		result.setStatusCode("FAIL");
-		log.error("ajax请求发生异常：errorCode={},errorMsg={}",result.getStatusCode(),result.getMessage());
+//		log.error("ajax请求发生异常：errorCode={},errorMsg={}",result.getStatusCode(),result.getMessage());
 		return result;
 	}
 }

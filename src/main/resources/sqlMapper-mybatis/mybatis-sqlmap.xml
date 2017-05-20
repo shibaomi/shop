@@ -28,5 +28,6 @@
 	</typeAliases>
 	<mappers>
 		<mapper resource="sqlMapper-mybatis/mapper/UserMapper.xml"/>
+		<mapper resource="sqlMapper-mybatis/mapper/SmsFlowMapper.xml"/>
 	</mappers>
 </configuration>

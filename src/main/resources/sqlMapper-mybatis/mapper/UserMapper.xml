@@ -12,136 +12,53 @@
 		<result column="PHONE" property="phone"/>
 		<result column="EMAIL" property="email"/>
 		<result column="addr" property="addr"/>
-		<result column="status" property="status"/>
+		<result column="state" property="state"/>
 		<result column="pwd_login" property="pwdLogin"/>
 		<result column="description" property="description"/>
-		<result column="university" property="university"/>
+		<result column="university_id" property="university.universityId"/>
+		<result column="university_name" property="university.universityName"/>
 		<result column="degree" property="degree"/>
+		<result column="country_code" property="address.countryCode"/>
+		<result column="country_name" property="address.countryName"/>
+		<result column="province_code" property="address.provinceCode"/>
+		<result column="province_name" property="address.provinceName"/>
+		<result column="city_code" property="address.cityCode"/>
+		<result column="city_name" property="address.cityName"/>
+		<result column="county_area_code" property="address.countyAreaCode"/>
+		<result column="county_area_name" property="address.countyAreaName"/>
+		<result column="town_street_code" property="address.townStreetCode"/>
+		<result column="town_street_name" property="address.townStreetName"/>
+		<result column="village_road_code" property="address.villageRoadCode"/>
+		<result column="village_road_name" property="address.villageRoadName"/>
 		<result column="create_time" property="createTime"/>
 		<result column="create_by" property="createBy"/>
 		<result column="update_time" property="updateTime"/>
 		<result column="update_by" property="updateBy"/>
-		<result column="country" property="country"/>
-		<result column="province" property="province"/>
-		<result column="city" property="city"/>
-		<result column="county_area" property="countyArea"/>
-		<result column="town_street" property="townStreet"/>
-		<result column="village_road" property="villageRoad"/>
 	</resultMap>
 	
 	<sql id="columnAll">
-		id,user_no,real_name,nick_name,certi_type,certi_no,mobile,phone,email,addr,status,pwd,
-		description,university,degree,create_time,create_by,update_time,update_by,country,
-		province,city,county_area,town_street,village_road
-	</sql>
-	<sql id="whereCondition">
-		<!-- 去除语句中的第一个and或or，并自动添加where关键字 -->
-		<where>
-			<if test="id!=null and id!=''">
-				and ID=#{id} 
-			</if>
-			<if test="userNo!=null and userNo!=''">
-				and user_no=#{userNo} 
-			</if>
-			<if test="userNoOnly!=null and userNoOnly!=''">
-				and user_no like CONCAT('%',#{userNoOnly},'%' ) 
-			</if>
-			<if test="realName!=null and realName!=''">
-				and REAL_NAME=#{realName} 
-			</if>
-			<if test="realNameOnly!=null and realNameOnly!=''">
-				and REAL_NAME like CONCAT('%',#{realNameOnly},'%' ) 
-			</if>
-			<if test="nickName!=null and nickName!=''">
-				and NICK_NAME=#{nickName} 
-			</if>
-			<if test="nickNameOnly!=null and nickNameOnly!=''">
-				and NICK_NAME like CONCAT('%',#{nickNameOnly},'%' ) 
-			</if>
-			<if test="certiType!=null and certiType!=''">
-				and CERTI_TYPE=#{certiType} 
-			</if>
-			<if test="certiNo!=null and certiNo!=''">
-				and CERTI_NO=#{certiNo} 
-			</if>
-			<if test="mobile!=null and mobile!=''">
-				and MOBILE=#{mobile} 
-			</if>
-			<if test="phone!=null and phone!=''">
-				and PHONE=#{phone} 
-			</if>
-			<if test="email!=null and email!=''">
-				and EMAIL=#{email} 
-			</if>
-			<if test="status!=null and status!=''">
-				and STATUS=#{status} 
-			</if>
-			<if test="university!=null and university!=''">
-				and UNIVERSITY=#{university} 
-			</if>
-			<if test="degree!=null and degree!=''">
-				and DEGREE=#{degree} 
-			</if>
-			<if test="createTime!=null and createTime!=''">
-				and create_time=#{createTime} 
-			</if>
-			<if test="createBy!=null and createBy!=''">
-				and create_by=#{createBy} 
-			</if>
-			<if test="updateTime!=null and updateTime!=''">
-				and update_time=#{updateTime} 
-			</if>
-			<if test="updateBy!=null and updateBy!=''">
-				and update_by=#{updateBy} 
-			</if>
-		</where>
+		id,user_no,real_name,nick_name,certi_type,certi_no,mobile,phone,email,addr,state,pwd_login,
+		description,university_id,university_name,degree,country_code,country_name,province_code,
+		province_name,city_code,city_name,county_area_code,county_area_name,town_street_code,town_street_name,
+		village_road_code,village_road_name,create_time,create_by,update_time,update_by
 	</sql>
 	
 	<select id="selectByKey" parameterType="long" resultMap="UserModel">
 		SELECT <include refid="columnAll"/> FROM sys_user WHERE ID=#{value}
 	</select>
-	<insert id="insertUser" parameterType="com.study.springmvc.dal.model.UserModel">
-		INSERT INTO sys_user(user_no,real_name,nick_name,certi_type,certi_no,mobile,phone,email,addr,status,pwd,
+	
+	<select id="selectByMobile" parameterType="long" resultMap="UserModel">
+		SELECT <include refid="columnAll"/> FROM sys_user WHERE mobile=#{value}
+	</select>
+	
+	<!-- <insert id="insertUser" parameterType="com.study.springmvc.dal.model.UserModel">
+		INSERT INTO sys_user(user_no,real_name,nick_name,certi_type,certi_no,mobile,phone,email,addr,status,pwd_login,
 			description,university,degree,create_by,update_by,country,
 			province,city,county_area,town_street,village_road) 
 		VALUES(
-			#{userNo},#{realName},#{nickName},#{certiType},#{certiNo},#{mobile},#{phone},#{email},#{addr},#{status},#{pwd},
+			#{userNo},#{realName},#{nickName},#{certiType},#{certiNo},#{mobile},#{phone},#{email},#{addr},#{status},#{pwdLogin},
 			#{description},#{university},#{degree},#{createBy},#{updateBy},#{country},
 			#{province},#{city},#{countyArea},#{townStreet},#{villageRoad}
 			)
-	</insert>
-	
-	<update id="updateUser" parameterType="com.study.springmvc.dal.model.UserModel">
-		UPDATE sys_user
-		SET
-			user_no=#{userNo},real_name=#{realName},nick_name=#{nickName},certi_type=#{certiType},certi_no=#{certiNo},
-			mobile=#{mobile},phone=#{phone},email=#{email},addr=#{addr},status=#{status},pwd=#{pwd},
-			description=#{description},university=#{university},degree=#{degree},create_by=#{createBy},update_by=#{updateBy},
-			country=#{country},province=#{province},city=#{city},county_area=#{countyArea},town_street=#{townStreet},village_road=#{villageRoad}
-		where ID=#{id}
-	</update>
-	
-	<delete id="deleteByKey"  parameterType="long" >
-		DELETE FROM sys_dict where ID=#{value}
-	</delete>
-	
-	<select id="selectUserExist" parameterType="map" resultMap="UserModel">
-		SELECT <include refid="columnAll"/> FROM sys_user 
-		WHERE (user_no=#{userNo} or (CERTI_TYPE=#{certiType} and CERTI_NO=#{certiNo})
-			 or MOBILE=#{mobile} or EMAIL=#{email} or STATUS!=#{status} ) 
-			<if test="id!=null and id!=''">
-				and ID != #{id}
-			</if>
-	</select>
-	
-	<update id="updateUserState" parameterType="map">
-		UPDATE sys_user
-		SET
-			status=#{status},update_by=#{updateBy},
-		where ID=#{id}
-	</update>
-	
-	<select id="selectList" parameterType="map" resultMap="UserModel">
-		SELECT <include refid="columnAll"/> FROM sys_user <include refid="whereCondition"/>
-	</select>
+	</insert> -->
 </mapper>

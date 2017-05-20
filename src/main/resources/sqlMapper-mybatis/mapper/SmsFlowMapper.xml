@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SmsFlowMapper">
+	<resultMap id="SmsFlowModel" type="com.study.springmvc.dal.model.sms.SmsFlowModel">
+		<result column="flow_no" property="flowNo"/>
+		<result column="mobile" property="mobile"/>
+		<result column="sms_type" property="smsType"/>
+		<result column="certi_type" property="certiType"/>
+		<result column="certi_no" property="certiNo"/>
+		<result column="verify_code" property="verifyCode"/>
+		<result column="origin_biz_no" property="originBizNo"/>
+		<result column="state" property="state"/>
+		<result column="remark" property="remark"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+	
+	<sql id="columnAll">
+		flow_no, mobile,sms_type,certi_type,certi_no,verify_code,origin_biz_no,state,remark,create_time,update_time
+	</sql>
+	
+	<select id="selectByKey" parameterType="long" resultMap="SmsFlowModel">
+		SELECT <include refid="columnAll"/> FROM sys_sms_flow WHERE flow_no=#{value}
+	</select>
+	<insert id="insertSmsFlow" parameterType="com.study.springmvc.dal.model.sms.SmsFlowModel" 
+		keyProperty="flowNo"   useGeneratedKeys="true">
+		INSERT INTO sys_sms_flow(mobile,sms_type,certi_type,certi_no,verify_code,origin_biz_no,state,remark) 
+		VALUES(
+			#{mobile},#{smsType},#{certiType},#{certiNo},#{verifyCode},#{originBizNo},#{state},#{remark})
+	</insert>
+	
+	<update id="updateSmsFlowState" parameterType="map">
+		update sys_sms_flow set state=#{newState} 
+		<!-- 去除语句中的第一个and或or，并自动添加where关键字 -->
+		<where>
+			<if test="mobile!=null and mobile!=''">
+				and mobile=#{mobile} 
+			</if>
+			<if test="flowNo!=null and flowNo!=''">
+				and flow_no=#{flowNo} 
+			</if>
+			<if test="oldState!=null and oldState!=''">
+				and state=#{oldState} 
+			</if>
+		</where>
+	</update>
+	
+	<select id="selectLastEffectiveByMobile" parameterType="map" resultMap="SmsFlowModel">
+		SELECT <include refid="columnAll"/> 
+		FROM sys_sms_flow 
+		WHERE mobile=#{mobile} 
+		<if test="state!=null and state!=''">
+			and state=#{state}
+		</if>
+	</select>
+</mapper>
