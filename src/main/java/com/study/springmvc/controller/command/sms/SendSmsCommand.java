@@ -3,7 +3,6 @@ package com.study.springmvc.controller.command.sms;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.util.StringUtils;
 
 import com.study.springmvc.common.constant.sms.SmsType;
@@ -24,6 +23,7 @@ public class SendSmsCommand {
 	private String mobile;
 	/***短信发送应用类型***/
 	@NotNull(message="短信发送场景类型必传")
+	
 	private SmsType smsType;
 	/***证件类型***/
 	private CertificateType certiType;

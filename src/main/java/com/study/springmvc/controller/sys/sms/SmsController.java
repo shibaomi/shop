@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +38,7 @@ public class SmsController {
 	 */
 	@RequestMapping(value = "/verify_code")
 	@ResponseBody
-	public void verifyCode(@RequestBody VerifySmsCommand command) {
+	public void verifyCode(@RequestBody @Valid VerifySmsCommand command) {
 		smsService.verifyMessage(command);
 	}
 	
@@ -48,8 +47,7 @@ public class SmsController {
 	 */
 	@RequestMapping(value = "/{mobile}/last_verify_code")
 	@ResponseBody
-	public SmsFlowModel verifyCode(@PathVariable("mobile") Long mobile) {
+	public SmsFlowModel verifyCode(@PathVariable(value="mobile",required=true) Long mobile) {
 		return smsService.getLastEffectiveSmsInfoByMobile(mobile);
 	}
-	
 }
