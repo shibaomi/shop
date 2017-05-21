@@ -2,7 +2,9 @@ package com.study.springmvc.controller.command.sms;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+
 import org.springframework.util.StringUtils;
+
 import com.study.springmvc.common.constant.sms.SmsType;
 import com.study.springmvc.common.constant.user.CertificateType;
 import com.study.springmvc.common.selfannotation.Scope;
