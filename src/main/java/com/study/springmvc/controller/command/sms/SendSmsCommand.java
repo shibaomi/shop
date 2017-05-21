@@ -2,11 +2,11 @@ package com.study.springmvc.controller.command.sms;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
 import org.springframework.util.StringUtils;
-
 import com.study.springmvc.common.constant.sms.SmsType;
 import com.study.springmvc.common.constant.user.CertificateType;
+import com.study.springmvc.common.selfannotation.Scope;
+import com.study.springmvc.common.utils.EnumUtils;
 import com.study.springmvc.common.utils.Validator;
 
 import lombok.Data;
@@ -23,10 +23,11 @@ public class SendSmsCommand {
 	private String mobile;
 	/***短信发送应用类型***/
 	@NotNull(message="短信发送场景类型必传")
-	
-	private SmsType smsType;
+	@Scope(value={"FAST_MOBILE_REGISTER"})
+	private String smsType;
 	/***证件类型***/
-	private CertificateType certiType;
+	@Scope(value={"ID"})
+	private String certiType;
 	/***证件号***/
 	private String certiNo;
 	/***关联业务流水***/
@@ -39,5 +40,25 @@ public class SendSmsCommand {
 			return Long.parseLong(this.mobile);
 		}
 		return null;
+	}
+	
+	/**
+	 * 短信场景：字符串转枚举类型
+	 */
+	public SmsType getSmsType(){
+		if(StringUtils.isEmpty(this.smsType)){
+			return null;
+		}
+		return EnumUtils.noErrorValueOf(SmsType.class, this.smsType);
+	}
+	
+	/**
+	 * 证件类型：字符串转枚举类型
+	 */
+	public CertificateType getCertiType(){
+		if(StringUtils.isEmpty(this.certiType)){
+			return null;
+		}
+		return EnumUtils.noErrorValueOf(CertificateType.class, this.certiType);
 	}
 }

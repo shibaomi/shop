@@ -31,7 +31,7 @@ public class SmsTest extends BaseTest{
 	public void testSaveSmsInfo() {
 		SendSmsCommand command=new SendSmsCommand();
 		command.setMobile("15201857832l");
-		command.setSmsType(SmsType.FAST_MOBILE_REGISTER);
+		command.setSmsType(SmsType.FAST_MOBILE_REGISTER.toString());
 		try {
 			System.out.println(smsService.sendMessage(command));
 		} catch (Exception e) {
