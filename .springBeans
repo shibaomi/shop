@@ -9,7 +9,6 @@
 	<configs>
 	</configs>
 	<autoconfigs>
-		<config>src/main/resources/META-INF/spring/redis/spring-redis.xml</config>
 		<config>src/main/resources/META-INF/spring/myibatis/spring-datasource-mybatis.xml</config>
 		<config>src/main/resources/META-INF/spring/spring-dao.xml</config>
 		<config>src/main/resources/META-INF/spring/spring-properties.xml</config>

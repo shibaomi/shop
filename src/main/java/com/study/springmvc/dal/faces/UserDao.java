@@ -12,5 +12,10 @@ public interface UserDao {
 	 * 根据手机号查询用户信息
 	 */
 	public UserModel queryUserModelByMobile(Long mobile);
+	
+	/**
+	 * 新增用户信息
+	 */
+	public int saveUserModel(UserModel user);
 
 }

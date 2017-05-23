@@ -15,6 +15,10 @@ import com.study.springmvc.controller.dto.sms.SendSmsDto;
 import com.study.springmvc.dal.model.sms.SmsFlowModel;
 import com.study.springmvc.service.faces.SmsService;
 
+import io.swagger.annotations.Api;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@Api(value="test")
 @Controller
 @RequestMapping(value = "sys/sms")
 public class SmsController {

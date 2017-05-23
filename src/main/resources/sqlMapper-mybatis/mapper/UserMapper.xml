@@ -51,14 +51,21 @@
 		SELECT <include refid="columnAll"/> FROM sys_user WHERE mobile=#{value}
 	</select>
 	
-	<!-- <insert id="insertUser" parameterType="com.study.springmvc.dal.model.UserModel">
-		INSERT INTO sys_user(user_no,real_name,nick_name,certi_type,certi_no,mobile,phone,email,addr,status,pwd_login,
-			description,university,degree,create_by,update_by,country,
-			province,city,county_area,town_street,village_road) 
+	<insert id="insertUser" parameterType="com.study.springmvc.dal.model.UserModel"
+		keyProperty="id"   useGeneratedKeys="true">
+		INSERT INTO sys_user(user_no,real_name,nick_name,certi_type,certi_no,mobile,phone,email,
+			addr,state,pwd_login,description,university_id,university_name,degree,country_code,
+			country_name,province_code,province_name,city_code,city_name,county_area_code,
+			county_area_name,town_street_code,town_street_name,village_road_code,village_road_name,
+			create_by,update_by) 
 		VALUES(
-			#{userNo},#{realName},#{nickName},#{certiType},#{certiNo},#{mobile},#{phone},#{email},#{addr},#{status},#{pwdLogin},
-			#{description},#{university},#{degree},#{createBy},#{updateBy},#{country},
-			#{province},#{city},#{countyArea},#{townStreet},#{villageRoad}
+			#{userNo},#{realName},#{nickName},#{certiType},#{certiNo},#{mobile},#{phone},#{email},
+			#{addr},#{state},#{pwdLogin},#{description},#{university.universityId},
+			#{university.universityName},#{degree},#{address.countryCode},#{address.countryName},
+			#{address.provinceCode},#{address.provinceName},#{address.cityCode},#{address.cityName},
+			#{address.countyAreaCode},#{address.countyAreaName},#{address.townStreetCode},
+			#{address.townStreetName},#{address.villageRoadCode},#{address.villageRoadName},
+			#{createBy},#{updateBy}
 			)
-	</insert> -->
+	</insert>
 </mapper>

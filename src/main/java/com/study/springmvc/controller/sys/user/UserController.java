@@ -4,17 +4,11 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.study.springmvc.common.db.page.QueryCondition;
-import com.study.springmvc.common.utils.Page;
-import com.study.springmvc.controller.command.sms.SendSmsCommand;
 import com.study.springmvc.controller.command.user.FastRegisterCommand;
-import com.study.springmvc.dal.model.UserModel;
-import com.study.springmvc.dal.model.sms.SmsFlowModel;
 import com.study.springmvc.service.faces.UserService;
 
 @Controller
@@ -29,8 +23,8 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/register")
 	@ResponseBody
-	public void register(@RequestBody @Valid SendSmsCommand command) {
-//		smsService.getLastEffectiveSmsInfoByMobile(mobile);
+	public void fastRegisterUser(@RequestBody @Valid FastRegisterCommand command) {
+		userService.fastRegisterUser(command);
 	}
 	
 }

@@ -6,7 +6,8 @@ import lombok.Data;
  * 地址信息
  * @author shibaomi
  */
-public @Data class Address {
+@Data
+public class Address {
 	/*** 所属国家编号 **/
 	private String countryCode;
 	/*** 所属国家名称 **/

@@ -2,6 +2,7 @@ package com.study.springmvc.controller.command.user;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.study.springmvc.common.selfannotation.Scope;
@@ -22,6 +23,7 @@ public class FastRegisterCommand {
 	
 	/**注册账号**/
 	@NotBlank(message="注册账号必传")
+	@Length(max=30,min=6,message="请输入6-30位注册账号")
 	private String accountNo;
 	
 	/*** 短信/邮箱等收到验证的流水  */

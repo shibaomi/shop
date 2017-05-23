@@ -15,20 +15,22 @@ public class UserDaoImpl implements UserDao{
 	@Autowired
 	private BaseDao_Mybatis baseDao;
 	
-	private static String SELECT_BY_ID="UserModelMapper.selectByKey";
-	private static String SELECT_BY_MOBILE="UserModelMapper.selectByMobile";
-
 	@Override
 	public UserModel queryUserModelById(Long id) {
-		return baseDao.selectOne(SELECT_BY_ID, id);
+		return baseDao.selectOne("UserModelMapper.selectByKey", id);
 	}
 
 	@Override
 	public UserModel queryUserModelByMobile(Long mobile) {
-		List<UserModel> result=baseDao.selectList(SELECT_BY_MOBILE, mobile);
+		List<UserModel> result=baseDao.selectList("UserModelMapper.selectByMobile", mobile);
 		if(CollectionUtils.isEmpty(result)){
 			return null;
 		}
 		return result.get(0);
+	}
+
+	@Override
+	public int saveUserModel(UserModel user) {
+		return baseDao.insert("UserModelMapper.insertUser", user);
 	}
 }

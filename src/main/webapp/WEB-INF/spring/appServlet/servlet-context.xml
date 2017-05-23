@@ -19,6 +19,9 @@
 		location：本地资源路径，注意必须是webapp根目录下的路径-->
     <resources mapping="/error/*.jsp" location="/error/" />
     <resources mapping="/*.js" location="/" />
+    
+    <resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"/>  
+	<resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"/>
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<!-- 将handler method返回的modelAndView基础上，加上目录前缀/WEB-INF/jsp/和文件名称后缀.jsp。
@@ -49,4 +52,6 @@
 	    <!-- <beans:property name="defaultErrorView" value="error/500"/> 错误页面  
 	    <beans:property name="exceptionAttribute" value="ex"/>   -->
 	</beans:bean>
+	
+	<beans:bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="swagger2Config"/>
 </beans:beans>
