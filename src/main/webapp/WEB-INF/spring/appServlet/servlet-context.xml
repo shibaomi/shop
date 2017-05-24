@@ -18,6 +18,7 @@
 		mapping：映射
 		location：本地资源路径，注意必须是webapp根目录下的路径-->
     <resources mapping="/error/*.jsp" location="/error/" />
+    <resources mapping="/view/**" location="/view/" />
     <resources mapping="/*.js" location="/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
