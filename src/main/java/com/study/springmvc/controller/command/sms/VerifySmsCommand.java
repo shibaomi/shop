@@ -41,6 +41,13 @@ public class VerifySmsCommand {
 	/***说明***/
 	private String remark;
 	
+	public Long getMobile(){
+		if(!StringUtils.isEmpty(this.mobile)){
+			return Long.parseLong(this.mobile);
+		}
+		return null;
+	}
+	
 	/**
 	 * 短信场景：字符串转枚举类型
 	 */
