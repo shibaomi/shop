@@ -18,6 +18,10 @@ import com.study.springmvc.dal.model.sms.SmsFlowModel;
 import com.study.springmvc.service.faces.SmsService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Extension;
+import io.swagger.annotations.ExtensionProperty;
 
 @Api(value="test",produces=MediaType.APPLICATION_JSON_UTF8_VALUE,consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Controller
@@ -33,6 +37,13 @@ public class SmsController {
 	 * 获取短信验证码
 	 * @return
 	 */
+	@ApiOperation(value = "获取短信验证码",extensions = {
+			@Extension(name="Extension1",properties = { 
+					@ExtensionProperty(name = "author", value = "史保密"),
+					@ExtensionProperty(name = "sinceVersion", value = "1.0.0"),
+					@ExtensionProperty(name = "lastModifiedVersion", value = "1.0.0")
+					})
+			}) 
 	@RequestMapping(value = "/code",method=RequestMethod.POST,consumes={MediaType.APPLICATION_JSON_UTF8_VALUE})
 	@ResponseBody
 	public SendSmsDto sendMessage(@RequestBody @Valid SendSmsCommand command) {
@@ -54,7 +65,7 @@ public class SmsController {
 	 */
 	@RequestMapping(value = "/{mobile}/last_verify_code",method=RequestMethod.GET)
 	@ResponseBody
-	public SmsFlowModel verifyCode(@PathVariable(value="mobile",required=true) Long mobile) {
+	public SmsFlowModel verifyCode(@ApiParam(value = "手机号",required=true,example="15201857832") @PathVariable(value="mobile",required=true) Long mobile) {
 		return smsService.getLastEffectiveSmsInfoByMobile(mobile);
 	}
 }

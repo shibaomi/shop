@@ -1,15 +1,27 @@
 package com.study.springmvc.controller.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.google.common.collect.Lists;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.ApiKeyVehicle;
+import springfox.documentation.swagger.web.SecurityConfiguration;
+import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
@@ -27,22 +39,50 @@ public class SwaggerConfig {
 //        		  	.responseModel(new ModelRef("Error")).build()
 //        		  );
 //    	customResps.add(new ResponseMessageBuilder()
-//    		  	.code(403)
-//    		  	.message("403")
-//    		  	.responseModel(new ModelRef("Error")).build()
+//    		  	.code(403)//定义响应重写的错误码
+//    		  	.message("403")//定义对应的信息说明
+//    		  	.responseModel(new ModelRef("Error")).build()//定义响应模型，其他地方定义的
 //    		  );
         		  
-        return new Docket(DocumentationType.SWAGGER_2)  //文档类型，swagger版本，有swagger1和swagger2        		
-          .select()//select返回ApiSelectorBuilder的一个实例，对通过swagger暴露的端点进行细粒度的控制。                              
-          .apis(RequestHandlerSelectors.basePackage("com.study.springmvc.controller"))//swagger暴露aip 包过滤 ,只暴露指定的包接口
-          .paths(PathSelectors.ant("/**")) //swagger暴露aip url过滤  ，只显示满足指定情况的url请求
-          .build().apiInfo(apiInfo())//配置自定义api信息       
-//          .pathMapping("/")//路径映射
+        return new Docket(DocumentationType.SWAGGER_2)  //文档类型，swagger版本，有swagger1和swagger2 
+        		.groupName("商店 api")
+				.select()//select返回ApiSelectorBuilder的一个实例，对通过swagger暴露的端点进行细粒度的控制。                              
+				.apis(RequestHandlerSelectors.basePackage("com.study.springmvc.controller"))//swagger暴露aip 包过滤 ,只暴露指定的包接口
+				.paths(PathSelectors.ant("/**")) //swagger暴露aip url过滤  ，只显示满足指定情况的url请求
+				.build().apiInfo(apiInfo())//配置自定义api信息 
+//          .securitySchemes(Lists.newArrayList(apiKey()))//暂时没搞懂
+//          .securityContexts(Lists.newArrayList(securityContext()))//暂时没搞懂
+          //          .pathMapping("/")//路径映射
 //          .directModelSubstitute(LocalDate.class,String.class)//渲染值映射，localDate映射为string
 //          .useDefaultResponseMessages(false)//标识是否采用默认响应配置，false不采用默认响应设置
 //          .globalResponseMessage(RequestMethod.GET, customResps)//设置自定义响应设置（只自定义get响应请求）
           ;                                    
     }
+    
+    //设置apiKey值
+//	private ApiKey apiKey() {
+//		//
+//		String name="mykey";
+//		String keyname="api_key";
+//		String passAs="header";
+//		return new ApiKey(name,keyname,passAs);
+//	}
+//	
+//	private SecurityContext securityContext() {
+//	    return SecurityContext.builder()
+//	        .securityReferences(defaultAuth())
+//	        .forPaths(PathSelectors.regex("/anyPath.*"))
+//	        .build();
+//	  }
+//	List<SecurityReference> defaultAuth() {
+//	    AuthorizationScope authorizationScope
+//	        = new AuthorizationScope("global", "accessEverything");
+//	    AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+//	    authorizationScopes[0] = authorizationScope;
+//	    return Lists.newArrayList(
+//	        new SecurityReference("mykey", authorizationScopes));
+//	  }
+	
     private ApiInfo apiInfo() {
 //    	String title="商店 API 接口";//
 //    	String description="按模块提供接口，可测试";

@@ -51,7 +51,12 @@
 	    <beans:property name="exceptionAttribute" value="ex"/>   -->
 	</beans:bean>
 	
+	<!-- swaggerxml配置，java配置参考com.study.springmvc.controller.common.SwaggerConfig和com.study.springmvc.controller.common.ConfigAdapter -->
 	<!-- <beans:bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="swagger2Config"/>
 	<resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"/>  
 	<resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"/> -->
+	
+	<!-- 引入jsr-303 swagger配置，java配置引入
+	@Import({ ... springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration.class, ...}) -->
+	<beans:bean class="springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration" />
 </beans:beans>
