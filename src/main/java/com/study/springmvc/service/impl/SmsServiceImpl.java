@@ -117,4 +117,9 @@ public class SmsServiceImpl implements SmsService {
 		return smsDao.getLastEffectiveSmsInfoByMobile(mobile);
 	}
 
+	@Override
+	public SmsFlowModel getSmsInfoById(Long id) {
+		return smsDao.getSmsInfoById(id);
+	}
+
 }

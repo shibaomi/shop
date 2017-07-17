@@ -25,5 +25,10 @@ public interface SmsService {
 	 * 根据手机号查询最新有效的短信消息
 	 */
 	public SmsFlowModel getLastEffectiveSmsInfoByMobile(Long mobile);
+	
+	/**
+	 * 根据流水id查询短信消息
+	 */
+	public SmsFlowModel getSmsInfoById(Long id);
 
 }

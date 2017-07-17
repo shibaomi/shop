@@ -3,7 +3,9 @@ package com.study.springmvc.dal.model;
 
 import com.study.springmvc.common.constant.user.CertificateType;
 import com.study.springmvc.common.constant.user.DegreeType;
+import com.study.springmvc.common.constant.user.FastRegisterType;
 import com.study.springmvc.common.constant.user.UserState;
+import com.study.springmvc.controller.command.user.FastRegisterCommand;
 import com.study.springmvc.dal.model.common.Address;
 import com.study.springmvc.dal.model.common.University;
 
@@ -50,4 +52,22 @@ public @Data class UserModel extends BaseModel{
 	/*** 地址信息  */
 	private Address address;
 	
+	/**
+	 * 默认构造函数
+	 */
+	public UserModel(){
+		
+	}
+	
+	/**
+	 * 快速注册构造函数
+	 */
+	public UserModel(FastRegisterCommand register){
+		this.pwdLogin=register.getPwd();
+		if(FastRegisterType.MOBILE.name().equals(register.getAccountType())){
+			//手机注册，其他注册暂不处理
+			this.mobile=register.getAccountNo();
+			this.nickName=register.getAccountNo();
+		}
+	}
 }

@@ -3,9 +3,14 @@ package com.study.springmvc.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.study.springmvc.common.constant.sms.SmsType;
+import com.study.springmvc.common.constant.user.FastRegisterType;
+import com.study.springmvc.common.exception.BusiException;
 import com.study.springmvc.controller.command.user.FastRegisterCommand;
 import com.study.springmvc.dal.faces.UserDao;
 import com.study.springmvc.dal.model.UserModel;
+import com.study.springmvc.dal.model.sms.SmsFlowModel;
+import com.study.springmvc.service.faces.SmsService;
 import com.study.springmvc.service.faces.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +21,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private SmsService smsService;
 
 	@Override
 	public UserModel queryUserModelById(Long id) {
@@ -29,7 +37,25 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public Long fastRegisterUser(FastRegisterCommand register) {
-		UserModel user=new UserModel();
+		if(!FastRegisterType.MOBILE.name().equals(register.getAccountType())){
+			log.error("暂不支持【{}】类型的快速注册",register.getAccountType());
+			throw new BusiException("注册类型暂不支持");
+		}
+		SmsFlowModel sms=smsService.getSmsInfoById(Long.valueOf(register.getVerifyNum() ));
+		if(sms==null){
+			log.error("快速注册短信验证流水【{}】未查到",register.getVerifyNum());
+			throw new BusiException("短信注册流水非法");
+		}
+		if(!SmsType.FAST_MOBILE_REGISTER.equals(sms.getSmsType())){
+			log.error("快速注册短信类型【{}】非法，不是快速注册类型",sms.getSmsType());
+			throw new BusiException("短信验证流水类型非法");
+		}
+		if(!sms.getMobile().equals(register.getAccountNo())){
+			log.error("快速注册手机号不一致，注册手机号：【{}】，获取短信的手机号：【{}】",register.getAccountNo(),
+					sms.getMobile());
+			throw new BusiException("注册手机号和获取短信验证码手机号不一致");
+		}
+		UserModel user=new UserModel(register);
 		userDao.saveUserModel(user);
 		return user.getId();
 	}
