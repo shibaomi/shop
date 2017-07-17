@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.study.springmvc.controller.command.user.FastRegisterCommand;
 import com.study.springmvc.service.faces.UserService;
 
+import io.swagger.annotations.Api;
+
 @Controller
 @RequestMapping(value = "sys/user")
 public class UserController {

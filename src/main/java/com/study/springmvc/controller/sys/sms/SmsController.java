@@ -20,14 +20,11 @@ import com.study.springmvc.service.faces.SmsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.Extension;
-import io.swagger.annotations.ExtensionProperty;
 
-@Api(value="test",produces=MediaType.APPLICATION_JSON_UTF8_VALUE,consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(description="手机短信接口",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Controller
 //produces:指定响应数据的内容类型，仅当request请求头中的(Accept)类型中包含该指定类型才返回
 @RequestMapping(value = "sys/sms",produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
-
 public class SmsController {
 	
 	@Autowired
@@ -37,13 +34,7 @@ public class SmsController {
 	 * 获取短信验证码
 	 * @return
 	 */
-	@ApiOperation(value = "获取短信验证码",extensions = {
-			@Extension(name="Extension1",properties = { 
-					@ExtensionProperty(name = "author", value = "史保密"),
-					@ExtensionProperty(name = "sinceVersion", value = "1.0.0"),
-					@ExtensionProperty(name = "lastModifiedVersion", value = "1.0.0")
-					})
-			}) 
+	@ApiOperation(value = "获取短信验证码") 
 	@RequestMapping(value = "/code",method=RequestMethod.POST,consumes={MediaType.APPLICATION_JSON_UTF8_VALUE})
 	@ResponseBody
 	public SendSmsDto sendMessage(@RequestBody @Valid SendSmsCommand command) {
@@ -54,6 +45,7 @@ public class SmsController {
 	 * 校验短信验证码
 	 * @return
 	 */
+	@ApiOperation(value = "校验短信验证码") 
 	@RequestMapping(value = "/verify_code",method=RequestMethod.POST,consumes={MediaType.APPLICATION_JSON_UTF8_VALUE})
 	@ResponseBody
 	public void verifyCode(@RequestBody @Valid VerifySmsCommand command) {
@@ -63,6 +55,7 @@ public class SmsController {
 	/***
 	 * 根据手机号获取最新的短信验证码信息
 	 */
+	@ApiOperation(value = "根据手机号获取最新的短信验证码信息") 
 	@RequestMapping(value = "/{mobile}/last_verify_code",method=RequestMethod.GET)
 	@ResponseBody
 	public SmsFlowModel verifyCode(@ApiParam(value = "手机号",required=true,example="15201857832") @PathVariable(value="mobile",required=true) Long mobile) {

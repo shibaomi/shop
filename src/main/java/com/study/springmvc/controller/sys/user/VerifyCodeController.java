@@ -6,13 +6,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.study.springmvc.common.utils.VerifyCodeUtils;
+
+import io.swagger.annotations.Api;
 
 /**
  * 图片验证码生成
  * @author shibaomi
  */
+@Api(description="图片验证码")
 @Controller
 @RequestMapping(value = "sys/verify_img")
 public class VerifyCodeController {
@@ -21,7 +25,7 @@ public class VerifyCodeController {
 	 * 获取图片验证码信息
 	 * @throws Exception 
 	 */
-	@RequestMapping(value = "")
+	@RequestMapping(value = "",method=RequestMethod.GET,produces={"image/webp"})
 	public void getVerifyCodeImage(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		resp.setHeader("Pragma", "No-cache"); 
 		resp.setHeader("Cache-Control", "no-cache"); 
