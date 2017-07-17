@@ -64,6 +64,7 @@ public @Data class UserModel extends BaseModel{
 	 */
 	public UserModel(FastRegisterCommand register){
 		this.pwdLogin=register.getPwd();
+		this.state=UserState.ENABLED;
 		if(FastRegisterType.MOBILE.name().equals(register.getAccountType())){
 			//手机注册，其他注册暂不处理
 			this.mobile=register.getAccountNo();
