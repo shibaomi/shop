@@ -17,5 +17,10 @@ public interface UserDao {
 	 * 新增用户信息
 	 */
 	public int saveUserModel(UserModel user);
+	
+	/**
+	 * 根据手机号更新用户密码
+	 */
+	public int updateUserPwdByMobile(Long mobile,String pwd);
 
 }

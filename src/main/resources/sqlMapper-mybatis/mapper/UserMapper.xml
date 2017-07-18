@@ -68,4 +68,8 @@
 			#{createBy},#{updateBy}
 			)
 	</insert>
+	
+	<update id="updateUserPwdByMobile" parameterType="map">
+		update sys_user set pwdLogin=#{pwd} where mobile=#{mobile} 
+	</update>
 </mapper>

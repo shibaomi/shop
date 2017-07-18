@@ -29,9 +29,9 @@ public class SendSmsCommand {
 	private String mobile;
 	/***短信发送应用类型***/
 	@ApiModelProperty(value = "短信发送应用类型",required=true,example="FAST_MOBILE_REGISTER",
-			allowableValues="FAST_MOBILE_REGISTER")
+			allowableValues="FAST_MOBILE_REGISTER,FORGET_PWD")
 	@NotNull(message="短信发送场景类型必传")
-	@Scope(value={"FAST_MOBILE_REGISTER"},message="短信发送应用类型不在指定范围内")
+	@Scope(value={"FAST_MOBILE_REGISTER","FORGET_PWD"},message="短信发送应用类型不在指定范围内")
 	private String smsType;
 	/***证件类型***/
 	@ApiModelProperty(value = "证件类型",example="ID",

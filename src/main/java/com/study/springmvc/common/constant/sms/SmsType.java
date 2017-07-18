@@ -6,4 +6,5 @@ package com.study.springmvc.common.constant.sms;
  */
 public enum SmsType {
 	FAST_MOBILE_REGISTER,//快速注册
+	FORGET_PWD,//忘记密码
 }

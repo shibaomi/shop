@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import com.study.springmvc.common.constant.sms.SmsState;
 import com.study.springmvc.common.constant.sms.SmsType;
 import com.study.springmvc.common.constant.user.FastRegisterType;
+import com.study.springmvc.common.constant.user.ForgetPwdType;
 import com.study.springmvc.common.exception.BusiException;
 import com.study.springmvc.controller.command.user.FastRegisterCommand;
+import com.study.springmvc.controller.command.user.ForgetPwdCommand;
 import com.study.springmvc.dal.faces.UserDao;
 import com.study.springmvc.dal.model.UserModel;
 import com.study.springmvc.dal.model.sms.SmsFlowModel;
@@ -63,5 +65,33 @@ public class UserServiceImpl implements UserService{
 		UserModel user=new UserModel(register);
 		userDao.saveUserModel(user);
 		return user.getId();
+	}
+
+	@Override
+	public void forgerPwdByMobile(ForgetPwdCommand forgetPwdCommand) {
+		if(!ForgetPwdType.MOBILE.name().equals(forgetPwdCommand.getForgetPwdType())){
+			log.error("暂不支持【{}】类型的找回密码",forgetPwdCommand.getForgetPwdType());
+			throw new BusiException("找回密码类型暂不支持");
+		}
+		SmsFlowModel sms=smsService.getSmsInfoById(Long.valueOf(forgetPwdCommand.getVerifyNum()));
+		if(sms==null){
+			log.error("手机找回密码短信验证流水【{}】未查到",forgetPwdCommand.getVerifyNum());
+			throw new BusiException("找回密码短信流水非法");
+		}
+		if(!SmsType.FORGET_PWD.equals(sms.getSmsType())){
+			log.error("找回密码短信类型【{}】非法，不是手机找回密码类型",sms.getSmsType());
+			throw new BusiException("短信验证流水类型非法");
+		}
+		if(!forgetPwdCommand.getAccountNo().equals(sms.getMobile()+"")){
+			log.error("找回密码手机号不一致，验证手机号：【{}】，获取短信的手机号：【{}】",forgetPwdCommand.getAccountNo(),
+					sms.getMobile());
+			throw new BusiException("找回密码手机号和获取短信验证码手机号不一致");
+		}
+		if(!SmsState.CHECK_SUCCESS.equals(sms.getState())){
+			log.error("找回密码短信状态不正确：【{}】",sms.getState());
+			throw new BusiException("找回密码短信未验证通过");
+		}
+		userDao.updateUserPwdByMobile(Long.valueOf(forgetPwdCommand.getAccountNo()),
+				forgetPwdCommand.getPwd());
 	}
 }

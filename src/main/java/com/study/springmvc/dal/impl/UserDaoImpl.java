@@ -1,6 +1,8 @@
 package com.study.springmvc.dal.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,5 +34,13 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public int saveUserModel(UserModel user) {
 		return baseDao.insert("UserModelMapper.insertUser", user);
+	}
+
+	@Override
+	public int updateUserPwdByMobile(Long mobile, String pwd) {
+		Map<String,Object> param=new HashMap<String,Object>();
+		param.put("mobile", mobile);
+		param.put("pwd", pwd);
+		return baseDao.update("UserModelMapper.updateUserPwdByMobile",param);
 	}
 }

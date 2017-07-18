@@ -29,9 +29,9 @@ public class VerifySmsCommand {
 	private Long flowNo;
 	/***短信发送应用类型***/
 	@ApiModelProperty(value = "短信发送应用类型",required=true,example="FAST_MOBILE_REGISTER",
-			allowableValues="FAST_MOBILE_REGISTER")
+			allowableValues="FAST_MOBILE_REGISTER,FORGET_PWD")
 	@NotNull(message="短信发送场景类型必传")
-	@Scope(value={"FAST_MOBILE_REGISTER"})
+	@Scope(value={"FAST_MOBILE_REGISTER","FORGET_PWD"})
 	private String smsType;
 	/**短信验证码*/
 	@ApiModelProperty(value = "短信验证码",required=true,example="ZXCC")

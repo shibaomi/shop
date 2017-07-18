@@ -39,7 +39,11 @@ public class SmsServiceImpl implements SmsService {
 	@Transactional
 	public SendSmsDto sendMessage(SendSmsCommand command) {
 		if(SmsType.FAST_MOBILE_REGISTER.equals(command.getSmsType())){
+			//手机快速注册发送短信验证码
 			return sendSmsForFastRegister(command);
+		}else if(SmsType.FORGET_PWD.equals(command.getSmsType())){
+			//手机找回密码发送短信验证
+			return sendSmsForForgetPwd(command);
 		}
 		return null;
 	}
@@ -68,6 +72,17 @@ public class SmsServiceImpl implements SmsService {
 		//发送短信验证码
 		return commonSendSms(command);
 	}
+	
+	//忘记密码校验发送短信信息
+	private SendSmsDto sendSmsForForgetPwd(SendSmsCommand command){
+		UserModel user=uerService.queryUserModelByMobile(command.getMobile());
+		if(user==null){
+			log.error("手机号={}的用户不存在",command.getMobile());
+			throw new BusiException("用户信息不存在");
+		}
+		//发送短信验证码
+		return commonSendSms(command);
+	}
 
 	@Override
 	@Transactional
@@ -75,6 +90,9 @@ public class SmsServiceImpl implements SmsService {
 		if(SmsType.FAST_MOBILE_REGISTER.equals(command.getSmsType())){
 			//快速注册手机短信校验
 			checkFastRegister( command);
+		}else if(SmsType.FORGET_PWD.equals(command.getSmsType())){
+			//忘记密码短信校验
+			checkForgetPwd(command);
 		}
 		//短信校验成功更改短信验证码的状态为校验成功
 		smsDao.updateSmsFlowState(command.getFlowNo(),SmsState.CHECK_SUCCESS);
@@ -105,9 +123,21 @@ public class SmsServiceImpl implements SmsService {
 					command.getVerifyCode(),sms.getVerifyCode());
 			throw new BusiException("验证码错误");
 		}
+		if(!sms.getSmsType().equals(command.getSmsType())){
+			log.error("手机号={}，短信流水={}，短信类型={}的短信类型非法，请求验证短信类型={}",command.getMobile(),command.getFlowNo(),
+					sms.getSmsType(),command.getSmsType());
+			throw new BusiException("短信验证码与操作不匹配");
+		}
 	}
 	//快速注册手机短信校验
 	private void checkFastRegister(VerifySmsCommand command){
+		SmsFlowModel sms=smsDao.getSmsInfoById(command.getFlowNo());
+		commonCheckSms(sms,command);
+		
+	}
+	
+	//忘记密码手机短信校验
+	private void checkForgetPwd(VerifySmsCommand command){
 		SmsFlowModel sms=smsDao.getSmsInfoById(command.getFlowNo());
 		commonCheckSms(sms,command);
 	}
