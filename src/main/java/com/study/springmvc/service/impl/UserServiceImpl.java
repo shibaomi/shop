@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService{
 		}
 		UserModel user=new UserModel(register);
 		userDao.saveUserModel(user);
+		userDao.updateUserNoById(user.getId(), "U"+String.format("%06d", user.getId()));
 		return user.getId();
 	}
 

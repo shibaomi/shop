@@ -70,6 +70,10 @@
 	</insert>
 	
 	<update id="updateUserPwdByMobile" parameterType="map">
-		update sys_user set pwdLogin=#{pwd} where mobile=#{mobile} 
+		update sys_user set pwd_login=#{pwd} where mobile=#{mobile} 
+	</update>
+	
+	<update id="updateUserNoById" parameterType="map">
+		update sys_user set user_no=#{userNo} where id=#{id} 
 	</update>
 </mapper>

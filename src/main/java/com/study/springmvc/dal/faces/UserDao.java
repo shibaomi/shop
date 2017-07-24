@@ -22,5 +22,10 @@ public interface UserDao {
 	 * 根据手机号更新用户密码
 	 */
 	public int updateUserPwdByMobile(Long mobile,String pwd);
+	
+	/**
+	 * 根据id更新用户的用户号userNo
+	 */
+	public int updateUserNoById(Long id,String userNo);
 
 }

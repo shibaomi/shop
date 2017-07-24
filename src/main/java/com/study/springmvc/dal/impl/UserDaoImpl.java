@@ -43,4 +43,12 @@ public class UserDaoImpl implements UserDao{
 		param.put("pwd", pwd);
 		return baseDao.update("UserModelMapper.updateUserPwdByMobile",param);
 	}
+
+	@Override
+	public int updateUserNoById(Long id, String userNo) {
+		Map<String,Object> param=new HashMap<String,Object>();
+		param.put("id", id);
+		param.put("userNo", userNo);
+		return baseDao.update("UserModelMapper.updateUserNoById",param);
+	}
 }
