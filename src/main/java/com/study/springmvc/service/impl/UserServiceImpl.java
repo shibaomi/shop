@@ -1,5 +1,8 @@
 package com.study.springmvc.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,9 +10,11 @@ import com.study.springmvc.common.constant.sms.SmsState;
 import com.study.springmvc.common.constant.sms.SmsType;
 import com.study.springmvc.common.constant.user.FastRegisterType;
 import com.study.springmvc.common.constant.user.ForgetPwdType;
+import com.study.springmvc.common.constant.user.UserState;
 import com.study.springmvc.common.exception.BusiException;
 import com.study.springmvc.controller.command.user.FastRegisterCommand;
 import com.study.springmvc.controller.command.user.ForgetPwdCommand;
+import com.study.springmvc.controller.command.user.LoginCommand;
 import com.study.springmvc.dal.faces.UserDao;
 import com.study.springmvc.dal.model.UserModel;
 import com.study.springmvc.dal.model.sms.SmsFlowModel;
@@ -94,5 +99,22 @@ public class UserServiceImpl implements UserService{
 		}
 		userDao.updateUserPwdByMobile(Long.valueOf(forgetPwdCommand.getAccountNo()),
 				forgetPwdCommand.getPwd());
+	}
+
+	@Override
+	public UserModel login(LoginCommand command) {
+		List<UserState> states=new ArrayList<UserState>();
+		states.add(UserState.ENABLED);
+		states.add(UserState.FROZEN);
+		UserModel user=this.userDao.queryByAccountNo(command.getAccountNo(),states);
+		if(user==null){
+			log.error("登录账号：【{}】的用户未查到",command.getAccountNo());
+			throw new BusiException("用户信息不存在或密码错误");
+		}
+		if(!user.getPwdLogin().equals(command.getPwd())){
+			log.error("登录账号：【{}】的用户密码错误",command.getAccountNo());
+			throw new BusiException("用户信息不存在或密码错误");
+		}
+		return user;
 	}
 }

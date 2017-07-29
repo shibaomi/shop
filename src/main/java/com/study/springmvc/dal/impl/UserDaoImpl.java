@@ -1,5 +1,6 @@
 package com.study.springmvc.dal.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
+import com.study.springmvc.common.constant.user.UserState;
 import com.study.springmvc.common.db.dao.mybatis.BaseDao_Mybatis;
 import com.study.springmvc.dal.faces.UserDao;
 import com.study.springmvc.dal.model.UserModel;
@@ -50,5 +52,21 @@ public class UserDaoImpl implements UserDao{
 		param.put("id", id);
 		param.put("userNo", userNo);
 		return baseDao.update("UserModelMapper.updateUserNoById",param);
+	}
+
+	@Override
+	public UserModel queryByAccountNo(String accountNo,List<UserState> states) {
+		Map<String,Object> param=new HashMap<String,Object>();
+		param.put("accountNo", accountNo);
+		List<String> stateStrs=new ArrayList<String>();
+		for(UserState  state: states){
+			stateStrs.add(state.name());
+		}
+		param.put("states", stateStrs);
+		List<UserModel> result=baseDao.selectList("UserModelMapper.selectByAccountNo", param);
+		if(CollectionUtils.isEmpty(result)){
+			return null;
+		}
+		return result.get(0);
 	}
 }

@@ -2,6 +2,7 @@ package com.study.springmvc.service.faces;
 
 import com.study.springmvc.controller.command.user.FastRegisterCommand;
 import com.study.springmvc.controller.command.user.ForgetPwdCommand;
+import com.study.springmvc.controller.command.user.LoginCommand;
 import com.study.springmvc.dal.model.UserModel;
 
 public interface UserService {
@@ -24,4 +25,9 @@ public interface UserService {
 	 * 用户手机找回密码
 	 */
 	public void forgerPwdByMobile(ForgetPwdCommand forgetPwdCommand);
+	
+	/**
+	 * 登录
+	 */
+	public UserModel login(LoginCommand command);
 }

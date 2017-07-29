@@ -1,5 +1,8 @@
 package com.study.springmvc.dal.faces;
 
+import java.util.List;
+
+import com.study.springmvc.common.constant.user.UserState;
 import com.study.springmvc.dal.model.UserModel;
 
 public interface UserDao {
@@ -27,5 +30,10 @@ public interface UserDao {
 	 * 根据id更新用户的用户号userNo
 	 */
 	public int updateUserNoById(Long id,String userNo);
-
+	
+	/**
+	 * 根据登录账号查询用户信息
+	 * @param accountNo:可以是手机号、用户编号、身份证号码、邮箱等
+	 */
+	public UserModel queryByAccountNo(String accountNo,List<UserState> states);
 }

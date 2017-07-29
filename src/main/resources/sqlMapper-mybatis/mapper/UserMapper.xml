@@ -76,4 +76,15 @@
 	<update id="updateUserNoById" parameterType="map">
 		update sys_user set user_no=#{userNo} where id=#{id} 
 	</update>
+	
+	<!-- 根据登录账号查询用户信息,accountNo:可以是手机号、用户编号、身份证号码、邮箱等 -->
+	<select id="selectByAccountNo" parameterType="map" resultMap="UserModel">
+		SELECT <include refid="columnAll"/> 
+		FROM sys_user 
+		WHERE (user_no=#{accountNo} or CERTI_NO=#{accountNo}  or MOBILE=#{accountNo} or MOBILE=#{accountNo})
+		and state in
+		<foreach item="item" index="index" collection="states" open="(" separator="," close=")">  
+			#{item}  
+		</foreach>  
+	</select>
 </mapper>
