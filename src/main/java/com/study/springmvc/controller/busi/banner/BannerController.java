@@ -1,4 +1,4 @@
-package com.study.springmvc.controller.sys.user;
+package com.study.springmvc.controller.busi.banner;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -21,9 +21,9 @@ import com.study.springmvc.service.faces.sys.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(description="登录管理接口",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(description="轮播图管理接口",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Controller
-public class LoginController {
+public class BannerController {
 	
 	@Autowired
 	private UserService userService;

@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.study.springmvc.common.constant.user.CertificateType;
-import com.study.springmvc.dal.model.UserModel;
+import com.study.springmvc.common.constant.common.CertificateType;
+import com.study.springmvc.dal.model.sys.user.UserModel;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;

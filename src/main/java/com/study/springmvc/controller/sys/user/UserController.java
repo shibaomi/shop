@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.study.springmvc.controller.command.user.FastRegisterCommand;
-import com.study.springmvc.controller.command.user.ForgetPwdCommand;
-import com.study.springmvc.service.faces.UserService;
+import com.study.springmvc.controller.command.sys.user.FastRegisterCommand;
+import com.study.springmvc.controller.command.sys.user.ForgetPwdCommand;
+import com.study.springmvc.service.faces.sys.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

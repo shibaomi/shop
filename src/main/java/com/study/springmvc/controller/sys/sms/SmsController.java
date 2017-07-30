@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.study.springmvc.controller.command.sms.SendSmsCommand;
-import com.study.springmvc.controller.command.sms.VerifySmsCommand;
-import com.study.springmvc.controller.dto.sms.SendSmsDto;
-import com.study.springmvc.dal.model.sms.SmsFlowModel;
-import com.study.springmvc.service.faces.SmsService;
+import com.study.springmvc.controller.command.sys.sms.SendSmsCommand;
+import com.study.springmvc.controller.command.sys.sms.VerifySmsCommand;
+import com.study.springmvc.controller.dto.sys.sms.SendSmsDto;
+import com.study.springmvc.dal.model.sys.sms.SmsFlowModel;
+import com.study.springmvc.service.faces.sys.SmsService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -27,7 +27,8 @@
 		<typeAlias alias="map" type="java.util.Map" />
 	</typeAliases>
 	<mappers>
-		<mapper resource="sqlMapper-mybatis/mapper/UserMapper.xml"/>
-		<mapper resource="sqlMapper-mybatis/mapper/SmsFlowMapper.xml"/>
+		<mapper resource="sqlMapper-mybatis/mapper/sys/UserMapper.xml"/>
+		<mapper resource="sqlMapper-mybatis/mapper/sys/SmsFlowMapper.xml"/>
+		<mapper resource="sqlMapper-mybatis/mapper/busi/banner/BannerMapper.xml"/>
 	</mappers>
 </configuration>

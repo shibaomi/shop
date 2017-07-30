@@ -3,7 +3,7 @@ package com.study.springmvc.common.utils;
 import java.io.Serializable;
 import java.util.List;
 
-import com.study.springmvc.common.constant.OrderEnum;
+import com.study.springmvc.common.constant.common.OrderEnum;
 
 import lombok.Data;
 

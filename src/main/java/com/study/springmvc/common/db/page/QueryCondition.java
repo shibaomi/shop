@@ -3,7 +3,7 @@ package com.study.springmvc.common.db.page;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.study.springmvc.common.constant.OrderEnum;
+import com.study.springmvc.common.constant.common.OrderEnum;
 
 import lombok.Data;
 

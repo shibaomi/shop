@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.study.springmvc.base.BaseTest;
 import com.study.springmvc.common.constant.sms.SmsType;
-import com.study.springmvc.controller.command.sms.SendSmsCommand;
-import com.study.springmvc.service.faces.SmsService;
+import com.study.springmvc.controller.command.sys.sms.SendSmsCommand;
+import com.study.springmvc.service.faces.sys.SmsService;
 
 public class SmsTest extends BaseTest{
 	@Autowired
