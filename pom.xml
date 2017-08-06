@@ -126,6 +126,14 @@
 			    <artifactId>fastjson</artifactId>
 			    <version>1.2.32</version>
 			</dependency>
+			
+			<!-- https://mvnrepository.com/artifact/com.qiniu/qiniu-java-sdk -->
+			<dependency>
+			    <groupId>com.qiniu</groupId>
+			    <artifactId>qiniu-java-sdk</artifactId>
+			    <version>7.2.7</version>
+			</dependency>
+			
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
@@ -318,7 +326,10 @@
 		    <artifactId>fastjson</artifactId>
 		</dependency>
 		
-		
+		<dependency>
+		    <groupId>com.qiniu</groupId>
+		    <artifactId>qiniu-java-sdk</artifactId>
+		</dependency>
 		
 	</dependencies>
 	<repositories>
