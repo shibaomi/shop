@@ -1,5 +1,6 @@
 package com.study.springmvc.dal.model.busi.product;
 
+import com.study.springmvc.common.constant.product.AttributeType;
 import com.study.springmvc.dal.model.BaseModel;
 
 import lombok.Data;
@@ -27,6 +28,11 @@ public class AttributeModel extends BaseModel{
 	 * 属性编码
 	 */
 	private String attributeCode;
+	
+	/**
+	 * 属性类型
+	 */
+	private AttributeType attributeType;
 	
 	/**
 	 * 属性描述

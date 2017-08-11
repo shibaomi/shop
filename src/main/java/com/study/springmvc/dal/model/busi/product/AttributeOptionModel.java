@@ -42,4 +42,9 @@ public class AttributeOptionModel extends BaseModel{
 	 * 所属属性id
 	 */
 	private Long atttibuteId;
+	
+	/**
+	 * 所属产品类别id
+	 */
+	private Long categoryId;
 }

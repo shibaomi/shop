@@ -33,4 +33,9 @@ public class ProductAttributeModel extends BaseModel{
 	 */
 	private Long attributeId;
 	
+	/**
+	 * 所属产品类别id
+	 */
+	private Long categoryId;
+	
 }

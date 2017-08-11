@@ -45,7 +45,12 @@ public class CategoryModel extends BaseModel{
 	private CategoryLevel categoryLevel;
 	
 	/**
-	 * 父类id
+	 * 直接父类id
 	 */
 	private Long categoryParentId;
+	
+	/**
+	 * 所有父类id组合，第一个为一级父类id，第二个为二级父类id，最后一个字符串一定为","
+	 */
+	private String parentsId;
 }
