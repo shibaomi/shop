@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+  <context id="mysql" targetRuntime="MyBatis3">
+  	<property name="javaFileEncoding" value="UTF-8"/>
+  	<!-- 格式化java代码 -->
+    <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+    <!-- 格式化XML代码 -->
+    <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+  	<!-- 顺序很重要 -->
+  	<commentGenerator type="com.study.springmvc.mybatis.MyCommentGenerator">
+    </commentGenerator>
+    
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        connectionURL="jdbc:mysql://127.0.0.1:3306/shop?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;useInformationSchema=true"
+        userId="root"
+        password="root">
+        <property name="useInformationSchema" value="true"></property>
+    </jdbcConnection>
+    
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+    <javaModelGenerator targetPackage="com.study.springmvc.mybatis.model" targetProject="">
+      <property name="enableSubPackages" value="true" />
+    </javaModelGenerator>
+
+    <sqlMapGenerator targetPackage="com.study.springmvc.mybatis.xml"  targetProject="">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.study.springmvc.mybatis.dao"  targetProject="">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+
+    <!-- <table schema="" tableName="account" domainObjectName="" >
+      <property name="useActualColumnNames" value="true"/>
+      <generatedKey column="ID" sqlStatement="mysql" identity="true" />
+      <columnOverride column="DATE_FIELD" property="startDate" />
+      <ignoreColumn column="FRED" />
+      <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+    </table>
+    
+    <table schema="" tableName="sys_config" domainObjectName="" >
+      <property name="useActualColumnNames" value="true"/>
+      <generatedKey column="ID" sqlStatement="mysql" identity="true" />
+      <columnOverride column="DATE_FIELD" property="startDate" />
+      <ignoreColumn column="FRED" />
+      <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+    </table> -->
+    <table schema="" tableName="user"
+    	enableCountByExample="false" enableUpdateByExample="false" 
+    	enableDeleteByExample="false" enableSelectByExample="false" 
+    	selectByExampleQueryId="false">
+      <property name="useActualColumnNames" value="false"/>
+      <generatedKey column="ID" sqlStatement="mysql" identity="true" />
+      <columnOverride column="DATE_FIELD" property="startDate" />
+      <ignoreColumn column="FRED" />
+      <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+    </table>
+  </context>
+</generatorConfiguration>

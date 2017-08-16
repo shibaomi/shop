@@ -2,4 +2,3 @@ eclipse.preferences.version=1
 encoding//src/main/java/com/study/springmvc/dal/model/sys/user/UserModel.java=UTF-8
 encoding//src/main/resources/META-INF/spring/druid/druid-jdbc_prd.properties=UTF-8
 encoding//src/main/resources/logback.properties=UTF-8
-encoding/<project>=UTF-8
