@@ -1,0 +1,7 @@
+ALTER TABLE `busi_attribute`
+ADD COLUMN `create_time`  datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间' AFTER `category_id`,
+ADD COLUMN `create_by`  bigint NULL COMMENT '创建人id' AFTER `create_time`,
+ADD COLUMN `update_time`  datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上次修改时间' AFTER `create_by`,
+ADD COLUMN `update_by`  bigint NULL COMMENT '修改人id' AFTER `update_time`;
+
+

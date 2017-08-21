@@ -90,3 +90,108 @@ CREATE TABLE `sys_user` (
   KEY `INDEX_REAL_NAME` (`real_name`),
   KEY `INDEX_EMAIL` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
+
+CREATE TABLE `busi_attribute_option` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `option_name` varchar(50) DEFAULT NULL COMMENT '属性选项名称',
+  `option_code` varchar(30) DEFAULT NULL COMMENT '属性选项编码',
+  `option_value` varchar(50) DEFAULT NULL COMMENT '属性选项的值',
+  `option_desc` varchar(100) DEFAULT NULL COMMENT '属性选项描述',
+  `atttibute_id` bigint(20) DEFAULT NULL COMMENT '所属属性id',
+  `category_id` bigint(20) DEFAULT NULL COMMENT '所属产品类别id',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建人id',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上次修改时间',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '修改人id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='属性选项表';
+
+CREATE TABLE `busi_attribute` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '无意义主键',
+  `attribute_name` varchar(50) DEFAULT NULL COMMENT '属性名称',
+  `attribute_code` varchar(30) DEFAULT NULL COMMENT '属性编码',
+  `attribute_type` varchar(30) DEFAULT NULL COMMENT '属性类型',
+  `attrbute_desc` varchar(100) DEFAULT NULL COMMENT '属性描述',
+  `category_id` bigint(20) DEFAULT NULL COMMENT '所属产品类别id',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建人id',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上次修改时间',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '修改人id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分类的属性';
+
+CREATE TABLE `busi_product` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '无意义主键',
+  `product_name` varchar(50) DEFAULT NULL COMMENT '产品名称',
+  `product_code` varchar(30) DEFAULT NULL COMMENT '产品编码',
+  `summary` varchar(150) DEFAULT NULL COMMENT '产品简介',
+  `product_desc` varchar(300) DEFAULT NULL COMMENT '产品详细描述',
+  `product_status` varchar(30) DEFAULT NULL COMMENT '产品状态',
+  `mobile_image_url` varchar(100) DEFAULT NULL COMMENT '产品app缩略图',
+  `computer_image_url` varchar(100) DEFAULT NULL COMMENT '产品电脑缩略图',
+  `categorys` varchar(100) DEFAULT NULL COMMENT '产品类别,已","分割，最左边是大类别的id，往右一级级类别的id',
+  `brand_id` bigint(20) DEFAULT NULL COMMENT '品牌id',
+  `manufacturer_id` bigint(20) DEFAULT NULL COMMENT '产品制造商id',
+  `new_product` varchar(10) DEFAULT NULL COMMENT '是否新品',
+  `new_product_time` int(8) DEFAULT NULL COMMENT '新品时间',
+  `hot_product` varchar(10) DEFAULT NULL COMMENT '是否热门',
+  `hot_product_time` int(20) DEFAULT NULL COMMENT '热门产品时间',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建人id',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上次修改时间',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '修改人id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品表';
+
+CREATE TABLE `busi_product_attribute` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) DEFAULT NULL COMMENT '产品id',
+  `option_id` bigint(20) DEFAULT NULL COMMENT '产品对应的属性选项id',
+  `atttibute_id` bigint(20) DEFAULT NULL COMMENT '产品对应的属性id',
+  `category_id` bigint(20) DEFAULT NULL COMMENT '所属产品类别id',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建人id',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上次修改时间',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '修改人id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品关联的分类属性表';
+
+CREATE TABLE `busi_product_specification` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) DEFAULT NULL COMMENT '产品id',
+  `option_id` bigint(20) DEFAULT NULL COMMENT '产品对应的规格选项id',
+  `specification_id` bigint(20) DEFAULT NULL COMMENT '产品对应的规格id',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建人id',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上次修改时间',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '修改人id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品关联的规格model(所有产品都有的)';
+
+CREATE TABLE `busi_specification` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `specification_name` varchar(50) DEFAULT NULL COMMENT '规格名称',
+  `specification_code` varchar(30) DEFAULT NULL COMMENT '规格编码',
+  `specification_desc` varchar(100) DEFAULT NULL COMMENT '规格描述',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建人id',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上次修改时间',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '修改人id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品规格';
+
+CREATE TABLE `busi_specification_option` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `option_name` varchar(50) DEFAULT NULL COMMENT '规格选项名称',
+  `option_code` varchar(30) DEFAULT NULL COMMENT '规格选项编码',
+  `option_value` varchar(50) DEFAULT NULL COMMENT '规格选项的值',
+  `option_desc` varchar(100) DEFAULT NULL COMMENT '规格选项描述',
+  `specification_id` bigint(20) DEFAULT NULL COMMENT '所属规格id',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建人id',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上次修改时间',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '修改人id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品规格选项';
+
+

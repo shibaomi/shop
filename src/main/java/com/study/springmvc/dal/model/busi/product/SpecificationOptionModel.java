@@ -31,7 +31,7 @@ public class SpecificationOptionModel extends BaseModel{
 	/**
 	 * 规格选项的值
 	 */
-	private String value;
+	private String optionValue;
 	
 	/**
 	 * 规格选项描述

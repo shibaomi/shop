@@ -31,7 +31,7 @@ public class AttributeOptionModel extends BaseModel{
 	/**
 	 * 属性选项的值
 	 */
-	private String value;
+	private String optionValue;
 	
 	/**
 	 * 属性选项描述
