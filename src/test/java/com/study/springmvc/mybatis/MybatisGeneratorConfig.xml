@@ -38,21 +38,6 @@
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
 
-    <!-- <table schema="" tableName="account" domainObjectName="" >
-      <property name="useActualColumnNames" value="true"/>
-      <generatedKey column="ID" sqlStatement="mysql" identity="true" />
-      <columnOverride column="DATE_FIELD" property="startDate" />
-      <ignoreColumn column="FRED" />
-      <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
-    </table>
-    
-    <table schema="" tableName="sys_config" domainObjectName="" >
-      <property name="useActualColumnNames" value="true"/>
-      <generatedKey column="ID" sqlStatement="mysql" identity="true" />
-      <columnOverride column="DATE_FIELD" property="startDate" />
-      <ignoreColumn column="FRED" />
-      <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
-    </table> -->
     <table schema="" tableName="busi_category" 
     	mapperName="CategoryMapper" domainObjectName="CategoryModel"
     	enableCountByExample="false" enableUpdateByExample="false" 
