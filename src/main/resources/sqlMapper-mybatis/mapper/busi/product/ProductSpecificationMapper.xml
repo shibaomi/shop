@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductSpecificationMapper">
+	<resultMap id="BaseResultMap" type="com.study.springmvc.dal.model.busi.product.ProductSpecificationModel">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="product_id" jdbcType="BIGINT" property="productId" />
+		<result column="option_id" jdbcType="BIGINT" property="optionId" />
+		<result column="specification_id" jdbcType="BIGINT" property="specificationId" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="create_by" jdbcType="BIGINT" property="createBy" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="update_by" jdbcType="BIGINT" property="updateBy" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, product_id, option_id, specification_id,create_by,update_by
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from busi_product_specification
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<insert id="insert"	parameterType="com.study.springmvc.dal.model.busi.product.ProductSpecificationModel">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into busi_product_specification (product_id, option_id,
+			specification_id,create_by,update_by)
+		values (#{productId,jdbcType=BIGINT}, #{optionId,jdbcType=BIGINT},
+			#{specificationId,jdbcType=BIGINT},#{createBy,jdbcType=BIGINT},
+			#{updateBy,jdbcType=BIGINT})
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.study.springmvc.dal.model.busi.product.ProductSpecificationModel">
+		update busi_product_specification
+		<set>
+			<if test="productId != null">
+				product_id = #{productId,jdbcType=BIGINT},
+			</if>
+			<if test="optionId != null">
+				option_id = #{optionId,jdbcType=BIGINT},
+			</if>
+			<if test="specificationId != null">
+				specification_id = #{specificationId,jdbcType=BIGINT},
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=BIGINT},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"	parameterType="com.study.springmvc.dal.model.busi.product.ProductSpecificationModel">
+		update busi_product_specification
+		set product_id = #{productId,jdbcType=BIGINT},
+			option_id = #{optionId,jdbcType=BIGINT},
+			specification_id = #{specificationId,jdbcType=BIGINT},
+			create_by = #{createBy,jdbcType=BIGINT},
+			update_by = #{updateBy,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

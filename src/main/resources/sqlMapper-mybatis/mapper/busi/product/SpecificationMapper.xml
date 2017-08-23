@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SpecificationMapper">
+	<resultMap id="BaseResultMap" type="com.study.springmvc.dal.model.busi.product.SpecificationModel">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="specification_name" jdbcType="VARCHAR" property="specificationName" />
+		<result column="specification_code" jdbcType="VARCHAR" property="specificationCode" />
+		<result column="specification_desc" jdbcType="VARCHAR" property="specificationDesc" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="create_by" jdbcType="BIGINT" property="createBy" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="update_by" jdbcType="BIGINT" property="updateBy" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, specification_name, specification_code, specification_desc,
+		create_by,update_by
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from busi_specification
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<insert id="insert" parameterType="com.study.springmvc.dal.model.busi.product.SpecificationModel">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into busi_specification (specification_name,
+			specification_code,specification_desc,create_by,update_by)
+		values (#{specificationName,jdbcType=VARCHAR},
+			#{specificationCode,jdbcType=VARCHAR},#{specificationDesc,jdbcType=VARCHAR},
+			#{createBy,jdbcType=BIGINT},#{updateBy,jdbcType=BIGINT})
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.study.springmvc.dal.model.busi.product.SpecificationModel">
+		update busi_specification
+		<set>
+			<if test="specificationName != null">
+				specification_name = #{specificationName,jdbcType=VARCHAR},
+			</if>
+			<if test="specificationCode != null">
+				specification_code = #{specificationCode,jdbcType=VARCHAR},
+			</if>
+			<if test="specificationDesc != null">
+				specification_desc = #{specificationDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=BIGINT},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"	parameterType="com.study.springmvc.dal.model.busi.product.SpecificationModel">
+		update busi_specification
+		set specification_name = #{specificationName,jdbcType=VARCHAR},
+			specification_code = #{specificationCode,jdbcType=VARCHAR},
+			specification_desc = #{specificationDesc,jdbcType=VARCHAR},
+			create_by = #{createBy,jdbcType=BIGINT},
+			update_by = #{updateBy,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>
