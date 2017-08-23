@@ -194,4 +194,24 @@ CREATE TABLE `busi_specification_option` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品规格选项';
 
+CREATE TABLE `busi_category` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '无意义主键',
+  `category_name` varchar(50) DEFAULT NULL COMMENT '类别名称',
+  `category_code` varchar(20) DEFAULT NULL COMMENT '类别编码',
+  `category_desc` varchar(100) DEFAULT NULL COMMENT '类别描述',
+  `category_status` varchar(20) DEFAULT NULL COMMENT '类别状态',
+  `category_level` varchar(20) DEFAULT NULL COMMENT '类别级别',
+  `category_parent_id` bigint(20) DEFAULT NULL COMMENT '直接父类id',
+  `parents_id` varchar(60) DEFAULT NULL COMMENT '所有父类id组合，第一个为一级父类id，第二个为二级父类id，最后一个字符串一定为","',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '修改人id',
+  PRIMARY KEY (`id`),
+  KEY `idx_parent_id_status` (`category_parent_id`,`category_status`),
+  KEY `idx_parents_id_status` (`parents_id`,`category_status`),
+  KEY `idx_code_status` (`category_code`,`category_status`),
+  KEY `idx_name_status` (`category_name`,`category_status`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='产品类别表';
+
 

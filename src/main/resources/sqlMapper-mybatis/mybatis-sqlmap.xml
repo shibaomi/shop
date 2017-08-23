@@ -30,5 +30,6 @@
 		<mapper resource="sqlMapper-mybatis/mapper/sys/UserMapper.xml"/>
 		<mapper resource="sqlMapper-mybatis/mapper/sys/SmsFlowMapper.xml"/>
 		<mapper resource="sqlMapper-mybatis/mapper/busi/banner/BannerMapper.xml"/>
+		<mapper resource="sqlMapper-mybatis/mapper/busi/product/CategoryMapper.xml"/>
 	</mappers>
 </configuration>

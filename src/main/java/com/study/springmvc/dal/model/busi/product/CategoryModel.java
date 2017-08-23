@@ -22,7 +22,7 @@ public class CategoryModel extends BaseModel{
 	/**
 	 * 类别名称
 	 */
-	private String catagoryName;
+	private String categoryName;
 	
 	/**
 	 * 类别编码

@@ -5,5 +5,5 @@ package com.study.springmvc.common.constant.product;
  * @author 史保密
  */
 public enum CategoryLevel {
-
+	ROOT,//跟
 }
