@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AttributeMapper">
+	<resultMap id="BaseResultMap"
+		type="com.study.springmvc.dal.model.busi.product.AttributeModel">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="attribute_name" jdbcType="VARCHAR" property="attributeName" />
+		<result column="attribute_code" jdbcType="VARCHAR" property="attributeCode" />
+		<result column="attribute_type" jdbcType="VARCHAR" property="attributeType" />
+		<result column="attrbute_desc" jdbcType="VARCHAR" property="attrbuteDesc" />
+		<result column="category_id" jdbcType="BIGINT" property="categoryId" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="create_by" jdbcType="BIGINT" property="createBy" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="update_by" jdbcType="BIGINT" property="updateBy" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, attribute_name, attribute_code, attribute_type, attrbute_desc,
+		category_id, create_time,create_by, update_time, update_by
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from busi_attribute
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<insert id="insert"	parameterType="com.study.springmvc.dal.model.busi.product.AttributeModel">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into busi_attribute (attribute_name, attribute_code,
+			attribute_type,	attrbute_desc, category_id,create_by, update_by)
+		values (#{attributeName,jdbcType=VARCHAR},#{attributeCode,jdbcType=VARCHAR}, 
+			#{attributeType,jdbcType=VARCHAR},#{attrbuteDesc,jdbcType=VARCHAR}, 
+			#{categoryId,jdbcType=BIGINT},#{createBy,jdbcType=BIGINT},
+			#{updateBy,jdbcType=BIGINT}
+		)
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.study.springmvc.dal.model.busi.product.AttributeModel">
+		update busi_attribute
+		<set>
+			<if test="attributeName != null">
+				attribute_name = #{attributeName,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeCode != null">
+				attribute_code = #{attributeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeType != null">
+				attribute_type = #{attributeType,jdbcType=VARCHAR},
+			</if>
+			<if test="attrbuteDesc != null">
+				attrbute_desc = #{attrbuteDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="categoryId != null">
+				category_id = #{categoryId,jdbcType=BIGINT},
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=BIGINT},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"	parameterType="com.study.springmvc.dal.model.busi.product.AttributeModel">
+		update busi_attribute
+		set attribute_name = #{attributeName,jdbcType=VARCHAR},
+			attribute_code = #{attributeCode,jdbcType=VARCHAR},
+			attribute_type = #{attributeType,jdbcType=VARCHAR},
+			attrbute_desc = #{attrbuteDesc,jdbcType=VARCHAR},
+			category_id = #{categoryId,jdbcType=BIGINT},
+			create_by = #{createBy,jdbcType=BIGINT},
+			update_by = #{updateBy,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

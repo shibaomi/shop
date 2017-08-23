@@ -31,7 +31,7 @@ public class MybatisGeneratorTest {
 					new File("").getAbsolutePath()+"/src/test/java"+
 					context.getJavaClientGeneratorConfiguration().getTargetProject());
 			context.getSqlMapGeneratorConfiguration().setTargetProject(
-					new File("").getAbsolutePath()+"/src/test/java"+
+					new File("").getAbsolutePath()+"/src/test/java/com/study/springmvc/mybatis/"+
 					context.getSqlMapGeneratorConfiguration().getTargetProject());
 			MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
 			ProgressCallback progressCallback = new VerboseProgressCallback();

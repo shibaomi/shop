@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductMapper">
+	<resultMap id="BaseResultMap" type="com.study.springmvc.dal.model.busi.product.ProductModel">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="product_name" jdbcType="VARCHAR" property="productName" />
+		<result column="product_code" jdbcType="VARCHAR" property="productCode" />
+		<result column="summary" jdbcType="VARCHAR" property="summary" />
+		<result column="product_desc" jdbcType="VARCHAR" property="productDesc" />
+		<result column="product_status" jdbcType="VARCHAR" property="productStatus" />
+		<result column="mobile_image_url" jdbcType="VARCHAR" property="mobileImageUrl" />
+		<result column="computer_image_url" jdbcType="VARCHAR" property="computerImageUrl" />
+		<result column="categorys" jdbcType="VARCHAR" property="categorys" />
+		<result column="brand_id" jdbcType="BIGINT" property="brandId" />
+		<result column="manufacturer_id" jdbcType="BIGINT" property="manufacturerId" />
+		<result column="new_product" jdbcType="VARCHAR" property="newProduct" />
+		<result column="new_product_time" jdbcType="INTEGER" property="newProductTime" />
+		<result column="hot_product" jdbcType="VARCHAR" property="hotProduct" />
+		<result column="hot_product_time" jdbcType="INTEGER" property="hotProductTime" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="create_by" jdbcType="BIGINT" property="createBy" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="update_by" jdbcType="BIGINT" property="updateBy" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, product_name, product_code, summary, product_desc, product_status,
+		mobile_image_url,computer_image_url, categorys, brand_id, manufacturer_id, 
+		new_product, new_product_time,hot_product, hot_product_time,create_by,update_by
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select	<include refid="Base_Column_List" />
+		from busi_product
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<insert id="insert" parameterType="com.study.springmvc.dal.model.busi.product.ProductModel">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into busi_product (product_name, product_code, summary,
+			product_desc, product_status, mobile_image_url,
+			computer_image_url, categorys, brand_id,
+			manufacturer_id, new_product, new_product_time,
+			hot_product, hot_product_time,create_by,update_by
+		)
+		values (#{productName,jdbcType=VARCHAR}, #{productCode,jdbcType=VARCHAR},
+			#{summary,jdbcType=VARCHAR},#{productDesc,jdbcType=VARCHAR}, 
+			#{productStatus,jdbcType=VARCHAR},#{mobileImageUrl,jdbcType=VARCHAR},
+			#{computerImageUrl,jdbcType=VARCHAR}, #{categorys,jdbcType=VARCHAR},
+			#{brandId,jdbcType=BIGINT},#{manufacturerId,jdbcType=BIGINT}, 
+			#{newProduct,jdbcType=VARCHAR}, #{newProductTime,jdbcType=INTEGER},
+			#{hotProduct,jdbcType=VARCHAR}, #{hotProductTime,jdbcType=INTEGER},
+			#{createBy,jdbcType=BIGINT},#{updateBy,jdbcType=BIGINT}
+		)
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.study.springmvc.dal.model.busi.product.ProductModel">
+		update busi_product
+		<set>
+			<if test="productName != null">
+				product_name = #{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="productCode != null">
+				product_code = #{productCode,jdbcType=VARCHAR},
+			</if>
+			<if test="summary != null">
+				summary = #{summary,jdbcType=VARCHAR},
+			</if>
+			<if test="productDesc != null">
+				product_desc = #{productDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="productStatus != null">
+				product_status = #{productStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="mobileImageUrl != null">
+				mobile_image_url = #{mobileImageUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="computerImageUrl != null">
+				computer_image_url = #{computerImageUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="categorys != null">
+				categorys = #{categorys,jdbcType=VARCHAR},
+			</if>
+			<if test="brandId != null">
+				brand_id = #{brandId,jdbcType=BIGINT},
+			</if>
+			<if test="manufacturerId != null">
+				manufacturer_id = #{manufacturerId,jdbcType=BIGINT},
+			</if>
+			<if test="newProduct != null">
+				new_product = #{newProduct,jdbcType=VARCHAR},
+			</if>
+			<if test="newProductTime != null">
+				new_product_time = #{newProductTime,jdbcType=INTEGER},
+			</if>
+			<if test="hotProduct != null">
+				hot_product = #{hotProduct,jdbcType=VARCHAR},
+			</if>
+			<if test="hotProductTime != null">
+				hot_product_time = #{hotProductTime,jdbcType=INTEGER},
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=BIGINT},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.study.springmvc.dal.model.busi.product.ProductModel">
+		update busi_product
+		set product_name = #{productName,jdbcType=VARCHAR},
+			product_code = #{productCode,jdbcType=VARCHAR},
+			summary = #{summary,jdbcType=VARCHAR},
+			product_desc = #{productDesc,jdbcType=VARCHAR},
+			product_status = #{productStatus,jdbcType=VARCHAR},
+			mobile_image_url = #{mobileImageUrl,jdbcType=VARCHAR},
+			computer_image_url = #{computerImageUrl,jdbcType=VARCHAR},
+			categorys = #{categorys,jdbcType=VARCHAR},
+			brand_id = #{brandId,jdbcType=BIGINT},
+			manufacturer_id = #{manufacturerId,jdbcType=BIGINT},
+			new_product = #{newProduct,jdbcType=VARCHAR},
+			new_product_time = #{newProductTime,jdbcType=INTEGER},
+			hot_product = #{hotProduct,jdbcType=VARCHAR},
+			hot_product_time = #{hotProductTime,jdbcType=INTEGER},
+			create_by = #{createBy,jdbcType=BIGINT},
+			update_by = #{updateBy,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>
