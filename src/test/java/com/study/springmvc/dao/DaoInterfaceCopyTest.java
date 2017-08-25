@@ -7,18 +7,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class GeneralDaoTest {
-	public static void main(String[] args) {
-		copyDaoToService();
-	}
-	
-	public static void copyDaoToService() {
-		String projectPath=new File("").getAbsolutePath();
-		String daoPath=projectPath+"/src/main/java/com/study/springmvc/dal/faces/busi/product";
-		String servicePath=projectPath+"/src/main/java/com/study/springmvc/service/faces/busi/product/";
-		String destPackagePath="com.study.springmvc.service.faces.busi.product";
-		copyDaoDirctoryToServiceDirctory(daoPath,servicePath,destPackagePath);
-	}
+/**
+ * 拷贝dao层的interface到service的interface
+ * @author 史保密 2017年8月25日
+ */
+public class DaoInterfaceCopyTest {
 	
 	//拷贝文件，并替换包地址和类名
 	public static void copyDaoDirctoryToServiceDirctory(String srcPath,String destPath,String destPackagePath) {
@@ -49,7 +42,7 @@ public class GeneralDaoTest {
 		}
 	}
 	
-	public static void copyDaoInterfaceFileToServiceInterfaceFile(BufferedReader in, BufferedWriter out,String destPackagePath,String oldFileName) throws IOException {
+	private static void copyDaoInterfaceFileToServiceInterfaceFile(BufferedReader in, BufferedWriter out,String destPackagePath,String oldFileName) throws IOException {
 		String line=null;
 		while((line=in.readLine())!=null) {
 			if(line.matches("^\\s*package\\s+.+")) {
