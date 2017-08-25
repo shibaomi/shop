@@ -13,7 +13,7 @@ public interface AttributeOptionService {
     int insert(AttributeOptionModel record);
 
     /**
-     * 根据id查询分类的属性s选项信息
+     * 根据id查询分类的属性选项信息
      */
     AttributeOptionModel selectByPrimaryKey(Long id);
 

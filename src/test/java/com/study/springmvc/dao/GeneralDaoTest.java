@@ -52,12 +52,16 @@ public class GeneralDaoTest {
 	public static void copyDaoInterfaceFileToServiceInterfaceFile(BufferedReader in, BufferedWriter out,String destPackagePath,String oldFileName) throws IOException {
 		String line=null;
 		while((line=in.readLine())!=null) {
-			if(line.matches("^\\s?package\\s+.+")) {
-				line="package "+destPackagePath+" ;";
-			}else if(line.matches("^\\s?public\\s+interface\\s+.+")) {
-				line="public interface " + oldFileName.replace("Dao", "Service")+" {";
+			if(line.matches("^\\s*package\\s+.+")) {
+				line="package "+destPackagePath+";";
+			}else if(line.matches("^\\s*public\\s+interface\\s+.+")) {
+				String javaName=oldFileName.replace("Dao", "Service");
+				line="public interface " + javaName.substring(0, javaName.length()-5)+" {";
+			}else if(line.matches(".*dao层.*")) {
+				line=line.replaceAll("dao层", "service层");
 			}
 			out.write(line);
+			out.newLine();
 		}
 		out.flush();
 	}

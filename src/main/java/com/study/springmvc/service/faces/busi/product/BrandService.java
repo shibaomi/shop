@@ -3,7 +3,7 @@ package com.study.springmvc.service.faces.busi.product;
 import com.study.springmvc.dal.model.busi.product.BrandModel;
 
 /**
- * 产品品牌service层
+ * 产品品牌Dao层
  * @author 史保密
  */
 public interface BrandService {
