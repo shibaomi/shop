@@ -62,11 +62,9 @@ public class ServiceImplGenerateTest {
 				out.newLine();
 				out.write("import org.springframework.stereotype.Service;");
 				out.newLine();
-				out.write("import com.study.springmvc.common.db.dao.mybatis.BaseDao_Mybatis;");
+				out.write("import"+daoPackage+"."+oldFileName.substring(0, oldFileName.length()-5)+";");
 				out.newLine();
-				out.write("import"+daoInterfacePath+"."+oldFileName.substring(0, oldFileName.length()-5)+";");
-				out.newLine();
-				String daoInterface="import"+daoPackage+"."+daoName+";";
+				String daoInterface="import "+daoInterfacePath+"."+daoName+";";
 				out.write(daoInterface);
 			}else if(line.matches("^\\s*public\\s+interface\\s+.+")) {
 				out.write("@Service");
@@ -98,7 +96,6 @@ public class ServiceImplGenerateTest {
 				out.write(methodGenerate(line,daoNameFirstCharToLower));
 				out.newLine();
 				out.write("\t}");
-				out.newLine();
 			}else {
 				out.write(line);
 			}
@@ -111,11 +108,11 @@ public class ServiceImplGenerateTest {
 		if(line.indexOf("insert")>-1) {
 			return "\t\treturn "+daoNameFirstCharToLower+".insert(record);";
 		}else if(line.indexOf("selectByPrimaryKey")>-1) {
-			return "\t\treturn "+daoNameFirstCharToLower+".selectOne(id);";
+			return "\t\treturn "+daoNameFirstCharToLower+".selectByPrimaryKey(id);";
 		}else if(line.indexOf("updateByPrimaryKeySelective")>-1) {
-			return "\t\treturn "+daoNameFirstCharToLower+".update(record);";
+			return "\t\treturn "+daoNameFirstCharToLower+".updateByPrimaryKeySelective(record);";
 		}else if(line.indexOf("updateByPrimaryKey")>-1) {
-			return "\t\treturn "+daoNameFirstCharToLower+".update(record);";
+			return "\t\treturn "+daoNameFirstCharToLower+".updateByPrimaryKey(record);";
 		}
 		return "";
 	}

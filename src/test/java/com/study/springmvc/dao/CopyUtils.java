@@ -14,7 +14,7 @@ public class CopyUtils {
 		String servicePath=projectPath+"/src/main/java/com/study/springmvc/service/faces/busi/product";
 		String serviceImplPath=projectPath+"/src/main/java/com/study/springmvc/service/impl/busi/product/";
 		String destPackagePath="com.study.springmvc.service.impl.busi.product";
-		String daoInterfacePath="com.study.springmvc.dal.impl.busi.product.";
+		String daoInterfacePath="com.study.springmvc.dal.faces.busi.product";
 		ServiceImplGenerateTest.copyServiceInterfaceToImplDirctory(servicePath, 
 				serviceImplPath, destPackagePath,daoInterfacePath);
 	}
