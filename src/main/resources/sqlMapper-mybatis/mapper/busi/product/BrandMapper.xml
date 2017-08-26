@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BrandMapper">
+	<resultMap id="BaseResultMap" type="com.study.springmvc.dal.model.busi.product.BrandModel">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="brand_name" jdbcType="VARCHAR" property="brandName" />
+		<result column="brand_code" jdbcType="VARCHAR" property="brandCode" />
+		<result column="summary" jdbcType="VARCHAR" property="summary" />
+		<result column="brand_desc" jdbcType="VARCHAR" property="brandDesc" />
+		<result column="brand_status" jdbcType="VARCHAR" property="brandStatus" />
+		<result column="logo_image_url" jdbcType="VARCHAR" property="logoImageUrl" />
+		<result column="company_id" jdbcType="BIGINT" property="companyId" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="create_by" jdbcType="BIGINT" property="createBy" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="update_by" jdbcType="BIGINT" property="updateBy" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, brand_name, brand_code, summary, brand_desc, brand_status,
+		logo_image_url, company_id,create_time, create_by, update_time, update_by
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from busi_brand
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<insert id="insert"	parameterType="com.study.springmvc.dal.model.busi.product.BrandModel">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into busi_brand (brand_name, brand_code, summary,
+			brand_desc, brand_status, logo_image_url,
+			company_id,create_by,update_by)
+		values (#{brandName,jdbcType=VARCHAR}, #{brandCode,jdbcType=VARCHAR},
+			#{summary,jdbcType=VARCHAR},#{brandDesc,jdbcType=VARCHAR}, 
+			#{brandStatus,jdbcType=VARCHAR}, #{logoImageUrl,jdbcType=VARCHAR},
+			#{companyId,jdbcType=BIGINT},#{createBy,jdbcType=BIGINT},
+			#{updateBy,jdbcType=BIGINT})
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.study.springmvc.dal.model.busi.product.BrandModel">
+		update busi_brand
+		<set>
+			<if test="brandName != null">
+				brand_name = #{brandName,jdbcType=VARCHAR},
+			</if>
+			<if test="brandCode != null">
+				brand_code = #{brandCode,jdbcType=VARCHAR},
+			</if>
+			<if test="summary != null">
+				summary = #{summary,jdbcType=VARCHAR},
+			</if>
+			<if test="brandDesc != null">
+				brand_desc = #{brandDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="brandStatus != null">
+				brand_status = #{brandStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="logoImageUrl != null">
+				logo_image_url = #{logoImageUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				company_id = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=BIGINT},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"	parameterType="com.study.springmvc.dal.model.busi.product.BrandModel">
+		update busi_brand
+		set brand_name = #{brandName,jdbcType=VARCHAR},
+			brand_code = #{brandCode,jdbcType=VARCHAR},
+			summary = #{summary,jdbcType=VARCHAR},
+			brand_desc = #{brandDesc,jdbcType=VARCHAR},
+			brand_status = #{brandStatus,jdbcType=VARCHAR},
+			logo_image_url = #{logoImageUrl,jdbcType=VARCHAR},
+			company_id = #{companyId,jdbcType=BIGINT},
+			create_by = #{createBy,jdbcType=BIGINT},
+			update_by = #{updateBy,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

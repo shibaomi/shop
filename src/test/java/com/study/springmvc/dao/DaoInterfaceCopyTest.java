@@ -36,7 +36,7 @@ public class DaoInterfaceCopyTest {
 					e.printStackTrace();
 				}
 			}
-			System.out.println("总共copy的文件："+i);
+			System.out.println("Service层interface总共copy的文件："+i);
 		}else {
 			System.out.println("路径错误:"+srcPath);
 		}

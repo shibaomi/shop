@@ -3,22 +3,27 @@ package com.study.springmvc.service.faces.busi.product;
 import com.study.springmvc.dal.model.busi.product.CategoryModel;
 
 /**
- * 产品品类service
+ * 产品品类service层
  * @author 史保密 2017年8月16日
  */
 public interface CategoryService {
-	/**
+    /**
      * 新增产品品类
      */
-    int createCategory(CategoryModel record);
+    int insert(CategoryModel record);
 
     /**
      * 根据id查询产品品类信息
      */
-    CategoryModel selectById(Long id);
+    CategoryModel selectByPrimaryKey(Long id);
 
     /**
-     * 更新产品品类信息
+     * 根据所给信息更新产品品类信息
      */
-    int updateCategoryModel(CategoryModel record);
+    int updateByPrimaryKeySelective(CategoryModel record);
+
+    /**
+     *	根据id更新产品品类信息
+     */
+    int updateByPrimaryKey(CategoryModel record);
 }

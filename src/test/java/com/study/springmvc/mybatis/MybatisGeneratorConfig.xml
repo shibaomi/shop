@@ -38,8 +38,8 @@
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
 
-    <table schema="" tableName="busi_product_specification" 
-    	mapperName="ProductSpecificationDao" domainObjectName="ProductSpecificationModel"
+    <table schema="" tableName="busi_brand" 
+    	mapperName="BrandDao" domainObjectName="BrandModel"
     	enableCountByExample="false" enableUpdateByExample="false" 
     	enableDeleteByExample="false" enableSelectByExample="false" 
     	selectByExampleQueryId="false" enableDeleteByPrimaryKey="false"

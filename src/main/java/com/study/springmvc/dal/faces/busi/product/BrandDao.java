@@ -1,12 +1,12 @@
-package com.study.springmvc.service.faces.busi.product;
+package com.study.springmvc.dal.faces.busi.product;
 
 import com.study.springmvc.dal.model.busi.product.BrandModel;
 
 /**
- * 品牌操作service层
+ * 品牌操作dao层
  * @author shibaomi 2017年8月26日
  */
-public interface BrandService {
+public interface BrandDao {
     /**
      * 新增品牌
      */

@@ -10,27 +10,28 @@ import java.io.IOException;
 import org.springframework.util.StringUtils;
 
 /**
- * dao层的实现类自动化
+ * service层的实现类自动化
  * @author 史保密 2017年8月25日
  */
-public class DaoImplGenerateTest {
+public class ServiceImplGenerateTest {
 	
 	//拷贝文件，并替换包地址和类名
-	public static void copyDaoInterfaceToImplDirctory(String srcPath,String destPath,String destPackagePath) {
+	public static void copyServiceInterfaceToImplDirctory(String srcPath,String destPath,
+			String destPackagePath,String daoInterfacePath) {
 		File daoFile=new File(srcPath);
 		if(daoFile.isDirectory()) {
 			int i=0;
 			File[]daoInterface =daoFile.listFiles();
 			for(File f:daoInterface ) {
 				String oldFileName=f.getName();
-				File copyFile=new File(destPath+oldFileName.replaceAll("Dao", "DaoImpl"));
+				File copyFile=new File(destPath+oldFileName.replaceAll("Service", "ServiceImpl"));
 				try {
 					if(copyFile.exists()) {
 						continue;
 					}
 					BufferedReader in=new BufferedReader(new  FileReader(f));
 					BufferedWriter out=new BufferedWriter(new FileWriter(copyFile));
-					copyDaoInterfaceFileToGenerateImplFile(in,out,destPackagePath,f.getName());
+					copyServiceInterfaceFileToGenerateImplFile(in,out,destPackagePath,f.getName(),daoInterfacePath);
 					in.close();
 					out.close();
 					i++;
@@ -38,15 +39,18 @@ public class DaoImplGenerateTest {
 					e.printStackTrace();
 				}
 			}
-			System.out.println("dao层impl总共copy的文件："+i);
+			System.out.println("service层impl总共copy的文件："+i);
 		}else {
 			System.out.println("路径错误:"+srcPath);
 		}
 	}
 	
-	private static void copyDaoInterfaceFileToGenerateImplFile(BufferedReader in, BufferedWriter out,String destPackagePath,String oldFileName) throws IOException {
+	private static void copyServiceInterfaceFileToGenerateImplFile(BufferedReader in, 
+			BufferedWriter out,String destPackagePath,String oldFileName,String daoInterfacePath) throws IOException {
 		String line=null;
 		boolean isRemark=false;
+		String daoName=oldFileName.substring(0, oldFileName.length()-5).replace("Service", "Dao");
+		String daoNameFirstCharToLower=daoName.substring(0, 1).toLowerCase()+ daoName.substring(1);
 		while((line=in.readLine())!=null) {
 			if(line.matches("^\\s*package\\s+.+")) {
 				String daoPackage=line.replace("package","").replace(";", "");
@@ -56,22 +60,25 @@ public class DaoImplGenerateTest {
 				out.newLine();
 				out.write("import org.springframework.beans.factory.annotation.Autowired;");
 				out.newLine();
-				out.write("import org.springframework.stereotype.Repository;");
+				out.write("import org.springframework.stereotype.Service;");
 				out.newLine();
 				out.write("import com.study.springmvc.common.db.dao.mybatis.BaseDao_Mybatis;");
 				out.newLine();
-				out.write("import"+daoPackage+"."+oldFileName.substring(0, oldFileName.length()-5)+";");
-			}else if(line.matches("^\\s*public\\s+interface\\s+.+")) {
-				out.write("@Repository");
+				out.write("import"+daoInterfacePath+"."+oldFileName.substring(0, oldFileName.length()-5)+";");
 				out.newLine();
-				String javaName=oldFileName.replace("Dao", "DaoImpl");
+				String daoInterface="import"+daoPackage+"."+daoName+";";
+				out.write(daoInterface);
+			}else if(line.matches("^\\s*public\\s+interface\\s+.+")) {
+				out.write("@Service");
+				out.newLine();
+				String javaName=oldFileName.replace("Service", "ServiceImpl");
 				line="public class " + javaName.substring(0, javaName.length()-5)+" implements " + oldFileName.substring(0, oldFileName.length()-5)+" {";
 				out.write(line);
 				out.newLine();
 				out.newLine();
 				out.write("\t@Autowired");
 				out.newLine();
-				out.write("\tprivate BaseDao_Mybatis baseDao;");
+				out.write("\tprivate "+daoName+" "+daoNameFirstCharToLower+";");
 				out.newLine();
 			}else if(line.matches("^\\s*/\\*\\*.*")){
 				isRemark=true;
@@ -88,7 +95,7 @@ public class DaoImplGenerateTest {
 				line="\tpublic "+line.substring(0, line.length()-1)+"{";
 				out.write(line);
 				out.newLine();
-				out.write(methodGenerate(line,oldFileName));
+				out.write(methodGenerate(line,daoNameFirstCharToLower));
 				out.newLine();
 				out.write("\t}");
 				out.newLine();
@@ -100,16 +107,15 @@ public class DaoImplGenerateTest {
 		out.flush();
 	}
 	
-	private static String methodGenerate(String line,String fileName) {
-		String sch=fileName.replace("Dao", "Mapper");
+	private static String methodGenerate(String line,String daoNameFirstCharToLower) {
 		if(line.indexOf("insert")>-1) {
-			return "\t\treturn baseDao.insert(\""+sch.substring(0, sch.length()-5)+".insert\", record);";
+			return "\t\treturn "+daoNameFirstCharToLower+".insert(record);";
 		}else if(line.indexOf("selectByPrimaryKey")>-1) {
-			return "\t\treturn baseDao.selectOne(\""+sch.substring(0, sch.length()-5)+".selectByPrimaryKey\", id);";
+			return "\t\treturn "+daoNameFirstCharToLower+".selectOne(id);";
 		}else if(line.indexOf("updateByPrimaryKeySelective")>-1) {
-			return "\t\treturn baseDao.update(\""+sch.substring(0, sch.length()-5)+".updateByPrimaryKeySelective\", record);";
+			return "\t\treturn "+daoNameFirstCharToLower+".update(record);";
 		}else if(line.indexOf("updateByPrimaryKey")>-1) {
-			return "\t\treturn baseDao.update(\""+sch.substring(0, sch.length()-5)+".updateByPrimaryKey\", record);";
+			return "\t\treturn "+daoNameFirstCharToLower+".update(record);";
 		}
 		return "";
 	}

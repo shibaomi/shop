@@ -30,7 +30,7 @@ public class CategoryTest extends BaseTest{
 		command.setCategoryParentId(-1l);
 		command.setParentsId("-1");
 		command.setCategoryStatus(CommonState.ENABLED);
-		int id=categoryService.createCategory(command);
+		int id=categoryService.insert(command);
 		assertNotNull(id);
 		System.out.println(id);
 	}
