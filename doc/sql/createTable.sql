@@ -214,4 +214,21 @@ CREATE TABLE `busi_category` (
   KEY `idx_name_status` (`category_name`,`category_status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='产品类别表';
 
+CREATE TABLE `busi_brand` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '无意义主键',
+  `brand_name` varchar(50) DEFAULT NULL COMMENT '品牌名称',
+  `brand_code` varchar(30) DEFAULT NULL COMMENT '品牌编码',
+  `summary` varchar(150) DEFAULT NULL COMMENT '品牌简介',
+  `brand_desc` varchar(300) DEFAULT NULL COMMENT '品牌描述',
+  `brand_status` varchar(10) DEFAULT NULL COMMENT '品牌状态',
+  `logo_image_url` varchar(100) DEFAULT NULL COMMENT '品牌logo图片地址',
+  `company_id` bigint(20) DEFAULT NULL COMMENT '品牌所属公司id',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建人id',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上次修改时间',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '修改人id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品品牌';
+
+
 

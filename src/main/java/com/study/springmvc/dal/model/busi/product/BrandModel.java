@@ -47,4 +47,9 @@ public class BrandModel extends BaseModel{
 	 * 品牌logo图片地址
 	 */
 	private String logoImageUrl;
+	
+	/**
+	 * 品牌所属公司id
+	 */
+	private Long companyId;
 }
