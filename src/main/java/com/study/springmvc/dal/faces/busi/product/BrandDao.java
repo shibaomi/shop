@@ -54,4 +54,9 @@ public interface BrandDao {
      * 更新全部品牌信息
      */
     int updateByPrimaryKey(BrandModel record);
+    
+    /**
+     * 分页查询品牌信息列表
+     */
+    List<BrandModel> selectByPage(String brandName,String brandCode,List<CommonStatus> brandStatus,Long companyId,Integer offset,Integer limit);
 }

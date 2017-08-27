@@ -14,12 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.study.springmvc.common.constant.banner.BannerType;
-import com.study.springmvc.common.constant.common.ChannelType;
 import com.study.springmvc.common.constant.common.CommonStatus;
-import com.study.springmvc.common.utils.Page;
 import com.study.springmvc.controller.command.busi.product.BrandCommand;
-import com.study.springmvc.dal.model.busi.banner.BannerModel;
 import com.study.springmvc.dal.model.busi.product.BrandModel;
 import com.study.springmvc.service.faces.busi.product.BrandService;
 
@@ -85,9 +81,10 @@ public class BrandController {
 	public List<BrandModel> queryBrands(@ApiParam(value = "品牌名称") @RequestParam(required=false)String brandName,
 			@ApiParam(value = "品牌编码") @RequestParam(required=false)String brandCode,
 			@ApiParam(value = "品牌状态") @RequestParam(required=false) CommonStatus status,
+			@ApiParam(value = "品牌关联的公司id") @RequestParam(required=false) Long companyId,
 			@RequestParam(required=false) Integer offset,@RequestParam(required=false) Integer limit
 			) {
-		return null;
+		return this.brandService.selectByPage(brandName, brandCode, status, companyId, offset, limit);
 	}
 
 }

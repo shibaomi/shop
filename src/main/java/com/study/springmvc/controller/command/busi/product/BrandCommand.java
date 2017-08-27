@@ -43,7 +43,7 @@ public class BrandCommand{
 	private String logoImageUrl;
 	
 	/*** 品牌所属公司id **/
-	@ApiModelProperty(value = "品牌所属公司id",example="品牌所属的公司信息")
+	@ApiModelProperty(value = "品牌所属公司id",example="1")
 	private Long companyId;
 	
 	//创建人

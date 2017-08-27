@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.study.springmvc.common.constant.common.CommonStatus;
 import com.study.springmvc.common.db.dao.mybatis.BaseDao_Mybatis;
@@ -103,6 +104,34 @@ public class BrandDaoImpl implements BrandDao {
 			parameters.put("brandStatus", status);
 		}
 		List<BrandModel>result=baseDao.selectList("BrandMapper.selectByCompanyId", parameters);
+		return result;
+	}
+
+	@Override
+	public List<BrandModel> selectByPage(String brandName, String brandCode,List<CommonStatus> brandStatus, 
+			Long companyId,Integer offset, Integer limit) {
+		Map<String,Object> parameters=new HashMap<String,Object>();
+		if(!StringUtils.isEmpty(brandName)){
+			parameters.put("brandName", brandName);
+		}
+		if(!StringUtils.isEmpty(brandCode)){
+			parameters.put("brandCode", brandCode);
+		}
+		if(!CollectionUtils.isEmpty(brandStatus)){
+			List<String> status=new ArrayList<String>();
+			for(CommonStatus cs: brandStatus){
+				status.add(cs.name());
+			}
+			parameters.put("brandStatus", status);
+		}
+		if(companyId!=null){
+			parameters.put("companyId", companyId);
+		}
+		if(offset!=null&&limit!=null){
+			parameters.put("offset", offset);
+			parameters.put("limit", limit);
+		}
+		List<BrandModel>result=baseDao.selectList("BrandMapper.selectByPage", parameters);
 		return result;
 	}
 

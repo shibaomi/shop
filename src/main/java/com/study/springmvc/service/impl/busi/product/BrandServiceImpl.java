@@ -1,5 +1,6 @@
 package com.study.springmvc.service.impl.busi.product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,5 +94,17 @@ public class BrandServiceImpl implements BrandService {
 		record.setId(id);
 		record.setBrandStatus(CommonStatus.DETELE);
 		brandDao.updateByPrimaryKeySelective(record);
+	}
+
+	@Override
+	public List<BrandModel> selectByPage(String brandName, String brandCode, CommonStatus status, Long companyId,
+			Integer offset, Integer limit) {
+		List<CommonStatus> brandStatus=new ArrayList<CommonStatus>();
+		if(status==null){
+			brandStatus.addAll(CommonStatus.getNoDeteleStatus());
+		}else{
+			brandStatus.add(status);
+		}
+		return brandDao.selectByPage(brandName, brandCode, brandStatus, companyId, offset, limit);
 	}
 }

@@ -137,4 +137,30 @@
 				</foreach>
 			</if>
 	</select>
+	
+	<select id="selectByPage" parameterType="map" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from busi_brand
+		<where>
+			<if test="brandName!=null and brandName!=''">
+				brand_name = #{brandName,jdbcType=VARCHAR}
+			</if>
+			<if test="brandCode!=null and brandCode!=''">
+				and brand_code = #{brandCode,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId!=null">
+				and company_id = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="brandStatus != null and brandStatus.size>0">
+				and brand_status in
+				<foreach collection="brandStatus" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+		order by id
+		<if test="offset!=null and limit!=''">
+			limit #{offset},#{limit}
+		</if>
+	</select>
 </mapper>

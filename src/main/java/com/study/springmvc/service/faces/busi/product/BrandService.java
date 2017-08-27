@@ -1,5 +1,8 @@
 package com.study.springmvc.service.faces.busi.product;
 
+import java.util.List;
+
+import com.study.springmvc.common.constant.common.CommonStatus;
 import com.study.springmvc.controller.command.busi.product.BrandCommand;
 import com.study.springmvc.dal.model.busi.product.BrandModel;
 
@@ -27,5 +30,10 @@ public interface BrandService {
      * 删除品牌信息
      */
     void deleteByPrimaryKey(Long id);
+    
+    /**
+     * 分页查询品牌信息列表
+     */
+    List<BrandModel> selectByPage(String brandName,String brandCode,CommonStatus status,Long companyId,Integer offset,Integer limit);
 
 }

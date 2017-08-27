@@ -35,6 +35,7 @@
 		<mapper resource="sqlMapper-mybatis/mapper/busi/product/CategoryMapper.xml"/>
 		<mapper resource="sqlMapper-mybatis/mapper/busi/product/ProductAttributeMapper.xml"/>
 		<mapper resource="sqlMapper-mybatis/mapper/busi/product/ProductMapper.xml"/>
+		<mapper resource="sqlMapper-mybatis/mapper/busi/product/BrandMapper.xml"/>
 		<mapper resource="sqlMapper-mybatis/mapper/busi/product/ProductSpecificationMapper.xml"/>
 		<mapper resource="sqlMapper-mybatis/mapper/busi/product/SpecificationMapper.xml"/>
 		<mapper resource="sqlMapper-mybatis/mapper/busi/product/SpecificationOptionMapper.xml"/>
