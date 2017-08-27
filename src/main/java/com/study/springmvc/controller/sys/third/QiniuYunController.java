@@ -1,16 +1,12 @@
 package com.study.springmvc.controller.sys.third;
 
-import javax.validation.Valid;
-
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.study.springmvc.common.qiniuyun.QiNiuYunUtils;
-import com.study.springmvc.controller.command.busi.banner.BannerCommand;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -29,6 +29,9 @@
 	<mappers>
 		<mapper resource="sqlMapper-mybatis/mapper/sys/UserMapper.xml"/>
 		<mapper resource="sqlMapper-mybatis/mapper/sys/SmsFlowMapper.xml"/>
+		<mapper resource="sqlMapper-mybatis/mapper/sys/UserRoleLevelMapper.xml"/>
+		
+		
 		<mapper resource="sqlMapper-mybatis/mapper/busi/banner/BannerMapper.xml"/>
 		<mapper resource="sqlMapper-mybatis/mapper/busi/product/AttributeMapper.xml"/>
 		<mapper resource="sqlMapper-mybatis/mapper/busi/product/AttributeOptionMapper.xml"/>

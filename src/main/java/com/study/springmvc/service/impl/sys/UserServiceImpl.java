@@ -10,6 +10,8 @@ import com.study.springmvc.common.constant.sms.SmsStatus;
 import com.study.springmvc.common.constant.sms.SmsType;
 import com.study.springmvc.common.constant.user.FastRegisterType;
 import com.study.springmvc.common.constant.user.ForgetPwdType;
+import com.study.springmvc.common.constant.user.UserLevel;
+import com.study.springmvc.common.constant.user.UserRole;
 import com.study.springmvc.common.constant.user.UserStatus;
 import com.study.springmvc.common.exception.BusiException;
 import com.study.springmvc.controller.command.sys.user.FastRegisterCommand;
@@ -18,7 +20,9 @@ import com.study.springmvc.controller.command.sys.user.LoginCommand;
 import com.study.springmvc.dal.faces.sys.UserDao;
 import com.study.springmvc.dal.model.sys.sms.SmsFlowModel;
 import com.study.springmvc.dal.model.sys.user.UserModel;
+import com.study.springmvc.dal.model.sys.user.UserRoleLevelModel;
 import com.study.springmvc.service.faces.sys.SmsService;
+import com.study.springmvc.service.faces.sys.UserRoleLevelService;
 import com.study.springmvc.service.faces.sys.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +36,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private SmsService smsService;
+	
+	@Autowired
+	private UserRoleLevelService userRoleLevelService;
 
 	@Override
 	public UserModel queryUserModelById(Long id) {
@@ -70,6 +77,8 @@ public class UserServiceImpl implements UserService{
 		UserModel user=new UserModel(register);
 		userDao.saveUserModel(user);
 		userDao.updateUserNoById(user.getId(), "U"+String.format("%06d", user.getId()));
+		UserRoleLevelModel rl=new UserRoleLevelModel(user.getId(),UserRole.C_CONSUMER,UserLevel.C_Level1);
+		userRoleLevelService.insert(rl);
 		return user.getId();
 	}
 

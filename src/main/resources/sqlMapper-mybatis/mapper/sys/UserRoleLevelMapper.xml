@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserRoleLevelMapper">
+	<resultMap id="BaseResultMap" type="com.study.springmvc.dal.model.sys.user.UserRoleLevelModel">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="user_id" jdbcType="BIGINT" property="userId" />
+		<result column="user_level" jdbcType="VARCHAR" property="userLevel" />
+		<result column="user_role" jdbcType="VARCHAR" property="userRole" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="create_by" jdbcType="BIGINT" property="createBy" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="update_by" jdbcType="BIGINT" property="updateBy" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, user_level, user_role,create_time,create_by, update_time, update_by
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from sys_user_role_level
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<insert id="insert"	parameterType="com.study.springmvc.dal.model.sys.user.UserRoleLevelModel">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into sys_user_role_level (user_id, user_level, user_role,create_by,update_by)
+		values (#{userId,jdbcType=BIGINT}, #{userLevel,jdbcType=VARCHAR},
+			#{userRole,jdbcType=VARCHAR},#{createBy,jdbcType=VARCHAR},#{updateBy,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.study.springmvc.dal.model.sys.user.UserRoleLevelModel">
+		update sys_user_role_level
+		<set>
+			<if test="userLevel != null">
+				user_level = #{userLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="userRole != null">
+				user_role = #{userRole,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=BIGINT},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"	parameterType="com.study.springmvc.dal.model.sys.user.UserRoleLevelModel">
+		update sys_user_role_level
+		set user_id = #{userId,jdbcType=BIGINT},
+			user_level = #{userLevel,jdbcType=VARCHAR},
+			user_role = #{userRole,jdbcType=VARCHAR},
+			create_by = #{createBy,jdbcType=BIGINT},
+			update_by = #{updateBy,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

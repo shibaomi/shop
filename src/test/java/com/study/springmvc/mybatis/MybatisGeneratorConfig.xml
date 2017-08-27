@@ -38,8 +38,8 @@
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
 
-    <table schema="" tableName="busi_brand" 
-    	mapperName="BrandDao" domainObjectName="BrandModel"
+    <table schema="" tableName="sys_user_role_level" 
+    	mapperName="UserRoleLevelMapper" domainObjectName="UserRoleLevelModel"
     	enableCountByExample="false" enableUpdateByExample="false" 
     	enableDeleteByExample="false" enableSelectByExample="false" 
     	selectByExampleQueryId="false" enableDeleteByPrimaryKey="false"

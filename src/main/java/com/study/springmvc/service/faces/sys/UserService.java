@@ -18,6 +18,7 @@ public interface UserService {
 	
 	/**
 	 * 用户快速注册
+	 * 注：只是给C端客户注册（默认注册过来的属于消费者）
 	 */
 	public Long fastRegisterUser(FastRegisterCommand register);
 	
