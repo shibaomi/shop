@@ -8,7 +8,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.study.springmvc.base.BaseTest;
-import com.study.springmvc.common.constant.common.CommonState;
+import com.study.springmvc.common.constant.common.CommonStatus;
 import com.study.springmvc.common.constant.product.CategoryLevel;
 import com.study.springmvc.dal.model.busi.product.CategoryModel;
 import com.study.springmvc.service.faces.busi.product.CategoryService;
@@ -29,7 +29,7 @@ public class CategoryTest extends BaseTest{
 		command.setCategoryLevel(CategoryLevel.ROOT);
 		command.setCategoryParentId(-1l);
 		command.setParentsId("-1");
-		command.setCategoryStatus(CommonState.ENABLED);
+		command.setCategoryStatus(CommonStatus.ENABLED);
 		int id=categoryService.insert(command);
 		assertNotNull(id);
 		System.out.println(id);

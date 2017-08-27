@@ -4,7 +4,7 @@ package com.study.springmvc.common.constant.product;
  * 产品状态
  * @author shibaomi
  */
-public enum ProductState {
+public enum ProductStatus {
 	/**
 	 * 初始状态
 	 */

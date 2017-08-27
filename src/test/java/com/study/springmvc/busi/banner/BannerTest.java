@@ -13,7 +13,7 @@ import com.study.springmvc.base.BaseTest;
 import com.study.springmvc.common.constant.banner.BannerType;
 import com.study.springmvc.common.constant.banner.BannerValueType;
 import com.study.springmvc.common.constant.common.ChannelType;
-import com.study.springmvc.common.constant.common.CommonState;
+import com.study.springmvc.common.constant.common.CommonStatus;
 import com.study.springmvc.controller.command.busi.banner.BannerCommand;
 import com.study.springmvc.dal.model.busi.banner.BannerModel;
 import com.study.springmvc.service.faces.busi.banner.BannerService;
@@ -38,7 +38,7 @@ public class BannerTest extends BaseTest{
 		Long id=bannerService.saveBanner(command);
 		assertNotNull(id);
 		List<BannerModel> banners=bannerService.queryBannerModel(BannerType.HOME_BANNER, 
-				CommonState.ENABLED, ChannelType.ANDROID_APP, 0, 10);
+				CommonStatus.ENABLED, ChannelType.ANDROID_APP, 0, 10);
 		assertNotNull(banners);
 		
 		command.setName("更新操作");

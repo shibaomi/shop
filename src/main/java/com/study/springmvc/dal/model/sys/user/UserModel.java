@@ -4,7 +4,7 @@ package com.study.springmvc.dal.model.sys.user;
 import com.study.springmvc.common.constant.common.CertificateType;
 import com.study.springmvc.common.constant.common.DegreeType;
 import com.study.springmvc.common.constant.user.FastRegisterType;
-import com.study.springmvc.common.constant.user.UserState;
+import com.study.springmvc.common.constant.user.UserStatus;
 import com.study.springmvc.controller.command.sys.user.FastRegisterCommand;
 import com.study.springmvc.dal.model.BaseModel;
 import com.study.springmvc.dal.model.common.Address;
@@ -40,7 +40,7 @@ public @Data class UserModel extends BaseModel{
 	/*** 地址 **/
 	private String addr;
 	/*** 状态 ，ENABLED（可用）、FROZEN（冻结），注：删除状态的用户直接移到历史账号表中**/
-	private UserState state;
+	private UserStatus userStatus;
 	/*** 登录密码 **/
 	private String pwdLogin;
 	/*** 描述 **/
@@ -65,7 +65,7 @@ public @Data class UserModel extends BaseModel{
 	 */
 	public UserModel(FastRegisterCommand register){
 		this.pwdLogin=register.getPwd();
-		this.state=UserState.ENABLED;
+		this.userStatus=UserStatus.ENABLED;
 		if(FastRegisterType.MOBILE.name().equals(register.getAccountType())){
 			//手机注册，其他注册暂不处理
 			this.mobile=register.getAccountNo();

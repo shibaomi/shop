@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
-import com.study.springmvc.common.constant.sms.SmsState;
+import com.study.springmvc.common.constant.sms.SmsStatus;
 import com.study.springmvc.common.db.dao.mybatis.BaseDao_Mybatis;
 import com.study.springmvc.dal.faces.sys.SmsDao;
 import com.study.springmvc.dal.model.sys.sms.SmsFlowModel;
@@ -24,12 +24,12 @@ public class SmsDaoImpl implements SmsDao{
 	}
 
 	@Override
-	public int updateAllSmsFlowStateFromInitToTimeOut(Long mobile) {
+	public int updateAllSmsFlowStatusFromInitToTimeOut(Long mobile) {
 		Map<String,Object>parameter=new HashMap<String,Object>();
 		parameter.put("mobile", mobile);
-		parameter.put("newState", SmsState.TIME_OUT.toString());
-		parameter.put("oldState", SmsState.INIT.toString());
-		return baseDao.update("SmsFlowMapper.updateSmsFlowState", parameter);
+		parameter.put("newStatus", SmsStatus.TIME_OUT.toString());
+		parameter.put("oldStatus", SmsStatus.INIT.toString());
+		return baseDao.update("SmsFlowMapper.updateSmsFlowStatus", parameter);
 	}
 
 	@Override
@@ -38,18 +38,18 @@ public class SmsDaoImpl implements SmsDao{
 	}
 
 	@Override
-	public int updateSmsFlowState(Long flowNo, SmsState state) {
+	public int updateSmsFlowStatus(Long flowNo, SmsStatus status) {
 		Map<String,Object>parameter=new HashMap<String,Object>();
 		parameter.put("flowNo", flowNo);
-		parameter.put("newState", state.toString());
-		return baseDao.update("SmsFlowMapper.updateSmsFlowState", parameter);
+		parameter.put("newStatus", status.toString());
+		return baseDao.update("SmsFlowMapper.updateSmsFlowStatus", parameter);
 	}
 
 	@Override
 	public SmsFlowModel getLastEffectiveSmsInfoByMobile(Long mobile) {
 		Map<String,Object>parameter=new HashMap<String,Object>();
 		parameter.put("mobile", mobile);
-		parameter.put("state", SmsState.INIT.toString());
+		parameter.put("smsStatus", SmsStatus.INIT.toString());
 		List<SmsFlowModel> result=baseDao.selectList("SmsFlowMapper.selectLastEffectiveByMobile", parameter);
 		if(CollectionUtils.isEmpty(result)){
 			return null;

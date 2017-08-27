@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.study.springmvc.common.constant.sms.SmsConstant;
-import com.study.springmvc.common.constant.sms.SmsState;
+import com.study.springmvc.common.constant.sms.SmsStatus;
 import com.study.springmvc.common.constant.sms.SmsType;
 import com.study.springmvc.common.exception.BusiException;
 import com.study.springmvc.common.sms.SmsMessageInterface;
@@ -54,7 +54,7 @@ public class SmsServiceImpl implements SmsService {
 		//获取验证码
 		String verifyCode=smsMessageInterface.sendMessage(command.getMobile());
 		//短信验证码获取成功，更新其他超时验证码状态为超时
-		smsDao.updateAllSmsFlowStateFromInitToTimeOut(command.getMobile());
+		smsDao.updateAllSmsFlowStatusFromInitToTimeOut(command.getMobile());
 		//快速手机注册发送短信
 		SmsFlowModel sms=new SmsFlowModel(command,verifyCode);
 		smsDao.saveSmsInfo(sms);
@@ -95,7 +95,7 @@ public class SmsServiceImpl implements SmsService {
 			checkForgetPwd(command);
 		}
 		//短信校验成功更改短信验证码的状态为校验成功
-		smsDao.updateSmsFlowState(command.getFlowNo(),SmsState.CHECK_SUCCESS);
+		smsDao.updateSmsFlowStatus(command.getFlowNo(),SmsStatus.CHECK_SUCCESS);
 	}
 	
 	//通用短信校验数据
@@ -113,9 +113,9 @@ public class SmsServiceImpl implements SmsService {
 					command.getVerifyCode());
 			throw new BusiException("验证码失效");
 		}
-		if(!SmsState.INIT.equals(sms.getState())){
+		if(!SmsStatus.INIT.equals(sms.getSmsStatus())){
 			log.error("手机号={}，短信流水={}，验证码={}的短信验码状态失效,状态={}",command.getMobile(),command.getFlowNo(),
-					command.getVerifyCode(),sms.getState());
+					command.getVerifyCode(),sms.getSmsStatus());
 			throw new BusiException("验证码失效");
 		}
 		if(!sms.getVerifyCode().toLowerCase().equals(command.getVerifyCode().toLowerCase())){

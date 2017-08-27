@@ -1,6 +1,6 @@
 package com.study.springmvc.dal.model.busi.product;
 
-import com.study.springmvc.common.constant.common.CommonState;
+import com.study.springmvc.common.constant.common.CommonStatus;
 import com.study.springmvc.common.constant.product.CategoryLevel;
 import com.study.springmvc.dal.model.BaseModel;
 
@@ -37,7 +37,7 @@ public class CategoryModel extends BaseModel{
 	/**
 	 * 类别状态
 	 */
-	private CommonState categoryStatus;
+	private CommonStatus categoryStatus;
 	
 	/**
 	 * 类别级别

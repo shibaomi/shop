@@ -1,5 +1,6 @@
 package com.study.springmvc.service.faces.busi.product;
 
+import com.study.springmvc.controller.command.busi.product.BrandCommand;
 import com.study.springmvc.dal.model.busi.product.BrandModel;
 
 /**
@@ -10,7 +11,7 @@ public interface BrandService {
     /**
      * 新增品牌
      */
-    int insert(BrandModel record);
+    Long insert(BrandCommand record);
 
     /**
      * 根据id查看品牌信息
@@ -20,10 +21,11 @@ public interface BrandService {
     /**
      * 选择性更新品牌信息
      */
-    int updateByPrimaryKeySelective(BrandModel record);
-
+    Long updateByPrimaryKeySelective(BrandCommand record);
+    
     /**
-     * 更新全部品牌信息
+     * 删除品牌信息
      */
-    int updateByPrimaryKey(BrandModel record);
+    void deleteByPrimaryKey(Long id);
+
 }

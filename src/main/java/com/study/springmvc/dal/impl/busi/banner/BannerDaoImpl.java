@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.study.springmvc.common.constant.banner.BannerType;
 import com.study.springmvc.common.constant.common.ChannelType;
-import com.study.springmvc.common.constant.common.CommonState;
+import com.study.springmvc.common.constant.common.CommonStatus;
 import com.study.springmvc.common.db.dao.mybatis.BaseDao_Mybatis;
 import com.study.springmvc.dal.faces.busi.banner.BannerDao;
 import com.study.springmvc.dal.model.busi.banner.BannerModel;
@@ -40,11 +40,11 @@ public class BannerDaoImpl implements BannerDao{
 	}
 
 	@Override
-	public int updateBannerState(Long id, CommonState state) {
+	public int updateBannerStatus(Long id, CommonStatus status) {
 		Map<String,Object>parameter=new HashMap<String,Object>();
 		parameter.put("id", id);
-		parameter.put("state", state.name());
-		return baseDao.update("BannerModelMapper.updateBannerState", parameter);
+		parameter.put("bannerStatus", status.name());
+		return baseDao.update("BannerModelMapper.updateBannerStatus", parameter);
 	}
 
 	@Override
@@ -53,16 +53,16 @@ public class BannerDaoImpl implements BannerDao{
 	}
 
 	@Override
-	public List<BannerModel> queryBannerModel(BannerType type, CommonState state, ChannelType channel,Integer offset,Integer limit) {
+	public List<BannerModel> queryBannerModel(BannerType type, CommonStatus status, ChannelType channel,Integer offset,Integer limit) {
 		Map<String,Object>parameter=new HashMap<String,Object>();
 		parameter.put("type", type==null?null:type.name());
-		parameter.put("state", state==null?null:state.name());
+		parameter.put("bannerStatus", status==null?null:status.name());
 		parameter.put("channel",channel==null?null:channel.name());
 		if(offset!=null&&limit!=null){
 			parameter.put("offset",offset);
 			parameter.put("limit",limit);
 		}
-		List<BannerModel> result=baseDao.selectList("BannerModelMapper.selectByType_State_Channle", parameter);
+		List<BannerModel> result=baseDao.selectList("BannerModelMapper.selectByType_Status_Channle", parameter);
 		return result;
 	}
 }

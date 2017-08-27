@@ -1,6 +1,6 @@
 package com.study.springmvc.dal.faces.sys;
 
-import com.study.springmvc.common.constant.sms.SmsState;
+import com.study.springmvc.common.constant.sms.SmsStatus;
 import com.study.springmvc.dal.model.sys.sms.SmsFlowModel;
 
 /**
@@ -16,7 +16,7 @@ public interface SmsDao {
 	/**
 	 * 更新所有短信流水状态为INIT的流水状态为TIME_OUT
 	 */
-	public int updateAllSmsFlowStateFromInitToTimeOut(Long mobile);
+	public int updateAllSmsFlowStatusFromInitToTimeOut(Long mobile);
 	
 	/**
 	 * 根据短信流水id查询发送短信信息
@@ -31,6 +31,6 @@ public interface SmsDao {
 	/**
 	 * 根据短信流水更新短信的状态
 	 */
-	public int updateSmsFlowState(Long flowNo,SmsState state);
+	public int updateSmsFlowStatus(Long flowNo,SmsStatus status);
 
 }

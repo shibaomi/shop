@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.study.springmvc.common.constant.banner.BannerType;
 import com.study.springmvc.common.constant.common.ChannelType;
-import com.study.springmvc.common.constant.common.CommonState;
+import com.study.springmvc.common.constant.common.CommonStatus;
 import com.study.springmvc.controller.command.IdCommand;
 import com.study.springmvc.controller.command.busi.banner.BannerCommand;
 import com.study.springmvc.dal.model.busi.banner.BannerModel;
@@ -70,10 +70,10 @@ public class BannerController {
 	@RequestMapping(value = "/",method=RequestMethod.GET)
 	@ResponseBody
 	public List<BannerModel> queryBanners(@ApiParam(value = "轮播图类型") @RequestParam(required=false)BannerType type,
-			@ApiParam(value = "轮播图状态") @RequestParam(required=false)CommonState state,
+			@ApiParam(value = "轮播图状态") @RequestParam(required=false)CommonStatus status,
 			@ApiParam(value = "请求轮播图渠道类型") @RequestParam(required=false) ChannelType channel,
 			@RequestParam(required=false) Integer offset,@RequestParam(required=false) Integer limit
 			) {
-		return bannerService.queryBannerModel(type, state, channel, offset, limit);
+		return bannerService.queryBannerModel(type, status, channel, offset, limit);
 	}
 }

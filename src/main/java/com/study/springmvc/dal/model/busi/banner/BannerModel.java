@@ -3,7 +3,7 @@ package com.study.springmvc.dal.model.busi.banner;
 import com.study.springmvc.common.constant.banner.BannerType;
 import com.study.springmvc.common.constant.banner.BannerValueType;
 import com.study.springmvc.common.constant.common.ChannelType;
-import com.study.springmvc.common.constant.common.CommonState;
+import com.study.springmvc.common.constant.common.CommonStatus;
 import com.study.springmvc.controller.command.busi.banner.BannerCommand;
 import com.study.springmvc.dal.model.BaseModel;
 
@@ -31,7 +31,7 @@ public class BannerModel extends BaseModel{
 	private BannerType type;
 	/*** 轮播图状态  **/
 	@ApiModelProperty(value = "轮播图状态 ",example="ENABLED")
-	private CommonState state;
+	private CommonStatus bannerStatus;
 	/*** 轮播图对应的渠道(如iso、Android、电脑web、手机web等)**/
 	@ApiModelProperty(value = "轮播图对应的渠道(如iso、Android、电脑web、手机web等)",example="IOS_APP")
 	private ChannelType channel;

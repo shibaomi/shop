@@ -1,6 +1,7 @@
 package com.study.springmvc.dal.model.busi.product;
 
-import com.study.springmvc.common.constant.common.CommonState;
+import com.study.springmvc.common.constant.common.CommonStatus;
+import com.study.springmvc.controller.command.busi.product.BrandCommand;
 import com.study.springmvc.dal.model.BaseModel;
 
 import lombok.Data;
@@ -41,7 +42,7 @@ public class BrandModel extends BaseModel{
 	/**
 	 * 品牌状态
 	 */
-	private CommonState brandStatus;
+	private CommonStatus brandStatus;
 	
 	/**
 	 * 品牌logo图片地址
@@ -52,4 +53,22 @@ public class BrandModel extends BaseModel{
 	 * 品牌所属公司id
 	 */
 	private Long companyId;
+	
+	public BrandModel(){
+		
+	}
+	
+	public BrandModel(BrandCommand record){
+		if(record!=null){
+			this.brandCode=record.getBrandCode();
+			this.brandDesc=record.getBrandDesc();
+			this.brandName=record.getBrandName();
+			this.companyId=record.getCompanyId();
+			this.id=record.getId();
+			this.logoImageUrl=record.getLogoImageUrl();
+			this.summary=record.getSummary();
+			this.setCreateBy(record.getCreateBy());
+			this.setUpdateBy(record.getUpdateBy());
+		}
+	}
 }

@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.study.springmvc.common.constant.sms.SmsState;
+import com.study.springmvc.common.constant.sms.SmsStatus;
 import com.study.springmvc.common.constant.sms.SmsType;
 import com.study.springmvc.common.constant.user.FastRegisterType;
 import com.study.springmvc.common.constant.user.ForgetPwdType;
-import com.study.springmvc.common.constant.user.UserState;
+import com.study.springmvc.common.constant.user.UserStatus;
 import com.study.springmvc.common.exception.BusiException;
 import com.study.springmvc.controller.command.sys.user.FastRegisterCommand;
 import com.study.springmvc.controller.command.sys.user.ForgetPwdCommand;
@@ -63,8 +63,8 @@ public class UserServiceImpl implements UserService{
 					sms.getMobile());
 			throw new BusiException("注册手机号和获取短信验证码手机号不一致");
 		}
-		if(!SmsState.CHECK_SUCCESS.equals(sms.getState())){
-			log.error("快速注册短信状态不正确：【{}】",sms.getState());
+		if(!SmsStatus.CHECK_SUCCESS.equals(sms.getSmsStatus())){
+			log.error("快速注册短信状态不正确：【{}】",sms.getSmsStatus());
 			throw new BusiException("快速注册短信未验证通过");
 		}
 		UserModel user=new UserModel(register);
@@ -93,8 +93,8 @@ public class UserServiceImpl implements UserService{
 					sms.getMobile());
 			throw new BusiException("找回密码手机号和获取短信验证码手机号不一致");
 		}
-		if(!SmsState.CHECK_SUCCESS.equals(sms.getState())){
-			log.error("找回密码短信状态不正确：【{}】",sms.getState());
+		if(!SmsStatus.CHECK_SUCCESS.equals(sms.getSmsStatus())){
+			log.error("找回密码短信状态不正确：【{}】",sms.getSmsStatus());
 			throw new BusiException("找回密码短信未验证通过");
 		}
 		userDao.updateUserPwdByMobile(Long.valueOf(forgetPwdCommand.getAccountNo()),
@@ -103,10 +103,10 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UserModel login(LoginCommand command) {
-		List<UserState> states=new ArrayList<UserState>();
-		states.add(UserState.ENABLED);
-		states.add(UserState.FROZEN);
-		UserModel user=this.userDao.queryByAccountNo(command.getAccountNo(),states);
+		List<UserStatus> status=new ArrayList<UserStatus>();
+		status.add(UserStatus.ENABLED);
+		status.add(UserStatus.FROZEN);
+		UserModel user=this.userDao.queryByAccountNo(command.getAccountNo(),status);
 		if(user==null){
 			log.error("登录账号：【{}】的用户未查到",command.getAccountNo());
 			throw new BusiException("用户信息不存在或密码错误");

@@ -9,14 +9,14 @@
 		<result column="certi_no" property="certiNo"/>
 		<result column="verify_code" property="verifyCode"/>
 		<result column="origin_biz_no" property="originBizNo"/>
-		<result column="state" property="state"/>
+		<result column="sms_status" property="smsStatus"/>
 		<result column="remark" property="remark"/>
 		<result column="create_time" property="createTime"/>
 		<result column="update_time" property="updateTime"/>
 	</resultMap>
 	
 	<sql id="columnAll">
-		flow_no, mobile,sms_type,certi_type,certi_no,verify_code,origin_biz_no,state,remark,create_time,update_time
+		flow_no, mobile,sms_type,certi_type,certi_no,verify_code,origin_biz_no,sms_status,remark,create_time,update_time
 	</sql>
 	
 	<select id="selectByKey" parameterType="long" resultMap="SmsFlowModel">
@@ -24,13 +24,13 @@
 	</select>
 	<insert id="insertSmsFlow" parameterType="com.study.springmvc.dal.model.sys.sms.SmsFlowModel" 
 		keyProperty="flowNo"   useGeneratedKeys="true">
-		INSERT INTO sys_sms_flow(mobile,sms_type,certi_type,certi_no,verify_code,origin_biz_no,state,remark) 
+		INSERT INTO sys_sms_flow(mobile,sms_type,certi_type,certi_no,verify_code,origin_biz_no,sms_status,remark) 
 		VALUES(
-			#{mobile},#{smsType},#{certiType},#{certiNo},#{verifyCode},#{originBizNo},#{state},#{remark})
+			#{mobile},#{smsType},#{certiType},#{certiNo},#{verifyCode},#{originBizNo},#{smsStatus},#{remark})
 	</insert>
 	
-	<update id="updateSmsFlowState" parameterType="map">
-		update sys_sms_flow set state=#{newState} 
+	<update id="updateSmsFlowStatus" parameterType="map">
+		update sys_sms_flow set sms_status=#{newStatus} 
 		<!-- 去除语句中的第一个and或or，并自动添加where关键字 -->
 		<where>
 			<if test="mobile!=null and mobile!=''">
@@ -39,8 +39,8 @@
 			<if test="flowNo!=null and flowNo!=''">
 				and flow_no=#{flowNo} 
 			</if>
-			<if test="oldState!=null and oldState!=''">
-				and state=#{oldState} 
+			<if test="oldStatus!=null and oldStatus!=''">
+				and sms_status=#{oldStatus} 
 			</if>
 		</where>
 	</update>
@@ -49,8 +49,8 @@
 		SELECT <include refid="columnAll"/> 
 		FROM sys_sms_flow 
 		WHERE mobile=#{mobile} 
-		<if test="state!=null and state!=''">
-			and state=#{state}
+		<if test="smsStatus!=null and smsStatus!=''">
+			and sms_status=#{smsStatus}
 		</if>
 	</select>
 </mapper>

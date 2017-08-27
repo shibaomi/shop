@@ -1,6 +1,6 @@
 package com.study.springmvc.dal.model.busi.product;
 
-import com.study.springmvc.common.constant.product.ProductState;
+import com.study.springmvc.common.constant.product.ProductStatus;
 import com.study.springmvc.dal.model.BaseModel;
 
 import lombok.Data;
@@ -42,7 +42,7 @@ public class ProductModel extends BaseModel{
 	/**
 	 * 产品状态
 	 */
-	private ProductState productStatus;
+	private ProductStatus productStatus;
 	
 	/**
 	 * 产品app缩略图

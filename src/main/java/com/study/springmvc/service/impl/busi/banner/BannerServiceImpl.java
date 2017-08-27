@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.study.springmvc.common.constant.banner.BannerType;
 import com.study.springmvc.common.constant.common.ChannelType;
-import com.study.springmvc.common.constant.common.CommonState;
+import com.study.springmvc.common.constant.common.CommonStatus;
 import com.study.springmvc.common.exception.BusiException;
 import com.study.springmvc.controller.command.busi.banner.BannerCommand;
 import com.study.springmvc.dal.faces.busi.banner.BannerDao;
@@ -27,7 +27,7 @@ public class BannerServiceImpl implements BannerService{
 	@Override
 	public Long saveBanner(BannerCommand command) {
 		BannerModel banner=new BannerModel(command);
-		banner.setState(CommonState.ENABLED);
+		banner.setBannerStatus(CommonStatus.ENABLED);
 		bannerDao.saveBanner(banner);
 		return banner.getId();
 	}
@@ -47,9 +47,9 @@ public class BannerServiceImpl implements BannerService{
 	}
 
 	@Override
-	public List<BannerModel> queryBannerModel(BannerType type, CommonState state, ChannelType channel, Integer offset,
+	public List<BannerModel> queryBannerModel(BannerType type, CommonStatus status, ChannelType channel, Integer offset,
 			Integer limit) {
-		return bannerDao.queryBannerModel(type, state, channel, offset, limit);
+		return bannerDao.queryBannerModel(type, status, channel, offset, limit);
 	}
 
 	@Override
@@ -59,10 +59,10 @@ public class BannerServiceImpl implements BannerService{
 			log.error("删除轮播图出错，轮播图id={}的轮播图不存在",id);
 			throw new BusiException("删除的轮播图不存在");
 		}
-		if(CommonState.DETELE.equals(banner.getState())){
+		if(CommonStatus.DETELE.equals(banner.getBannerStatus())){
 			log.error("删除轮播图错误，轮播图id={}的轮播图已删除",id);
 			throw new BusiException("轮播图已删除");
 		}
-		return bannerDao.updateBannerState(id, CommonState.DETELE);
+		return bannerDao.updateBannerStatus(id, CommonStatus.DETELE);
 	}
 }

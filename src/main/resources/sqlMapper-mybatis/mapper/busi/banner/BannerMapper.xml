@@ -5,7 +5,7 @@
 		<result column="id" property="id"/>
 		<result column="name" property="name"/>
 		<result column="type" property="type"/>
-		<result column="state" property="state"/>
+		<result column="banner_status" property="bannerStatus"/>
 		<result column="channel" property="channel"/>
 		<result column="image_url" property="imageUrl"/>
 		<result column="value_type" property="valueType"/>
@@ -18,7 +18,7 @@
 	</resultMap>
 	
 	<sql id="columnAll">
-		id,name,type,state,channel,image_url,value_type,value,remark,create_time,create_by,update_time,update_by
+		id,name,type,banner_status,channel,image_url,value_type,value,remark,create_time,create_by,update_time,update_by
 	</sql>
 	
 	<select id="selectByKey" parameterType="long" resultMap="BannerModel">
@@ -27,22 +27,22 @@
 	
 	<insert id="insertBanner" parameterType="com.study.springmvc.dal.model.busi.banner.BannerModel"
 		keyProperty="id"   useGeneratedKeys="true">
-		INSERT INTO busi_banner(name,type,state,channel,image_url,value_type,value,remark,create_by,update_by) 
+		INSERT INTO busi_banner(name,type,banner_status,channel,image_url,value_type,value,remark,create_by,update_by) 
 		VALUES(
-			#{name},#{type},#{state},#{channel},#{imageUrl},#{valueType},#{value},#{remark},
+			#{name},#{type},#{bannerStatus},#{channel},#{imageUrl},#{valueType},#{value},#{remark},
 			#{createBy},#{updateBy}
 			)
 	</insert>
 	
-	<select id="selectByType_State_Channle" parameterType="map" resultMap="BannerModel">
+	<select id="selectByType_Status_Channle" parameterType="map" resultMap="BannerModel">
 		SELECT <include refid="columnAll"/> FROM busi_banner 
 		<!-- 去除语句中的第一个and或or，并自动添加where关键字 -->
 		<where>
 			<if test="type!=null and type!=''">
 				and type=#{type}
 			</if>
-			<if test="state!=null and state!=''">
-				and state=#{state}
+			<if test="bannerStatus!=null and bannerStatus!=''">
+				and banner_status=#{bannerStatus}
 			</if>
 			<if test="channel!=null and channel!=''">
 				and channel=#{channel}
@@ -53,8 +53,8 @@
 		</if>
 	</select>
 	
-	<update id="updateBannerState" parameterType="map">
-		update busi_banner set state=#{state} where id=#{id} 
+	<update id="updateBannerStatus" parameterType="map">
+		update busi_banner set banner_status=#{bannerStatus} where id=#{id} 
 	</update>
 	
 	<update id="updateBanner" parameterType="com.study.springmvc.dal.model.busi.banner.BannerModel">

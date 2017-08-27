@@ -1,7 +1,7 @@
 package com.study.springmvc.dal.model.sys.sms;
 
 import com.study.springmvc.common.constant.common.CertificateType;
-import com.study.springmvc.common.constant.sms.SmsState;
+import com.study.springmvc.common.constant.sms.SmsStatus;
 import com.study.springmvc.common.constant.sms.SmsType;
 import com.study.springmvc.controller.command.sys.sms.SendSmsCommand;
 import com.study.springmvc.dal.model.TimeModel;
@@ -42,7 +42,7 @@ public class SmsFlowModel extends TimeModel{
 	private String originBizNo;
 	/***短信验证状态***/
 	@ApiModelProperty(value = "短信验证状态",example="INIT")
-	private SmsState state=SmsState.INIT;
+	private SmsStatus smsStatus=SmsStatus.INIT;
 	/***备注***/
 	@ApiModelProperty(value = "备注")
 	private String remark;

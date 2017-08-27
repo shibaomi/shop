@@ -12,7 +12,7 @@
 		<result column="PHONE" property="phone"/>
 		<result column="EMAIL" property="email"/>
 		<result column="addr" property="addr"/>
-		<result column="state" property="state"/>
+		<result column="user_status" property="userStatus"/>
 		<result column="pwd_login" property="pwdLogin"/>
 		<result column="description" property="description"/>
 		<result column="university_id" property="university.universityId"/>
@@ -37,7 +37,7 @@
 	</resultMap>
 	
 	<sql id="columnAll">
-		id,user_no,real_name,nick_name,certi_type,certi_no,mobile,phone,email,addr,state,pwd_login,
+		id,user_no,real_name,nick_name,certi_type,certi_no,mobile,phone,email,addr,user_status,pwd_login,
 		description,university_id,university_name,degree,country_code,country_name,province_code,
 		province_name,city_code,city_name,county_area_code,county_area_name,town_street_code,town_street_name,
 		village_road_code,village_road_name,create_time,create_by,update_time,update_by
@@ -54,13 +54,13 @@
 	<insert id="insertUser" parameterType="com.study.springmvc.dal.model.sys.user.UserModel"
 		keyProperty="id"   useGeneratedKeys="true">
 		INSERT INTO sys_user(user_no,real_name,nick_name,certi_type,certi_no,mobile,phone,email,
-			addr,state,pwd_login,description,university_id,university_name,degree,country_code,
+			addr,user_status,pwd_login,description,university_id,university_name,degree,country_code,
 			country_name,province_code,province_name,city_code,city_name,county_area_code,
 			county_area_name,town_street_code,town_street_name,village_road_code,village_road_name,
 			create_by,update_by) 
 		VALUES(
 			#{userNo},#{realName},#{nickName},#{certiType},#{certiNo},#{mobile},#{phone},#{email},
-			#{addr},#{state},#{pwdLogin},#{description},#{university.universityId},
+			#{addr},#{userStatus},#{pwdLogin},#{description},#{university.universityId},
 			#{university.universityName},#{degree},#{address.countryCode},#{address.countryName},
 			#{address.provinceCode},#{address.provinceName},#{address.cityCode},#{address.cityName},
 			#{address.countyAreaCode},#{address.countyAreaName},#{address.townStreetCode},
@@ -82,8 +82,8 @@
 		SELECT <include refid="columnAll"/> 
 		FROM sys_user 
 		WHERE (user_no=#{accountNo} or CERTI_NO=#{accountNo}  or MOBILE=#{accountNo} or MOBILE=#{accountNo})
-		and state in
-		<foreach item="item" index="index" collection="states" open="(" separator="," close=")">  
+		and user_status in
+		<foreach item="item" index="index" collection="userStatus" open="(" separator="," close=")">  
 			#{item}  
 		</foreach>  
 	</select>

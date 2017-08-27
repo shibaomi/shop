@@ -19,10 +19,16 @@
 		id, brand_name, brand_code, summary, brand_desc, brand_status,
 		logo_image_url, company_id,create_time, create_by, update_time, update_by
 	</sql>
-	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+	<select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
 		select <include refid="Base_Column_List" />
 		from busi_brand
 		where id = #{id,jdbcType=BIGINT}
+			<if test="brandStatus != null and brandStatus.size>0">
+				and brand_status in
+				<foreach collection="brandStatus" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
 	</select>
 	<insert id="insert"	parameterType="com.study.springmvc.dal.model.busi.product.BrandModel">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -83,4 +89,52 @@
 			update_by = #{updateBy,jdbcType=BIGINT}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
+	
+	<select id="selectByBrandName" parameterType="map" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from busi_brand
+		where brand_name = #{brandName,jdbcType=VARCHAR}
+			<if test="brandStatus != null and brandStatus.size>0">
+				and brand_status in
+				<foreach collection="brandStatus" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+	</select>
+	
+	<select id="selectByBrandCode" parameterType="map" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from busi_brand
+		where brand_code = #{brandCode,jdbcType=VARCHAR}
+			<if test="brandStatus != null and brandStatus.size>0">
+				and brand_status in
+				<foreach collection="brandStatus" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+	</select>
+	
+	<select id="selectByBrandNameAndBrandCode" parameterType="map" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from busi_brand
+		where (brand_name = #{brandName,jdbcType=VARCHAR} or brand_code = #{brandCode,jdbcType=VARCHAR})
+			<if test="brandStatus != null and brandStatus.size>0">
+				and brand_status in
+				<foreach collection="brandStatus" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+	</select>
+	
+	<select id="selectByCompanyId" parameterType="map" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from busi_brand
+		where company_id = #{companyId,jdbcType=BIGINT}
+			<if test="brandStatus != null and brandStatus.size>0">
+				and brand_status in
+				<foreach collection="brandStatus" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+	</select>
 </mapper>

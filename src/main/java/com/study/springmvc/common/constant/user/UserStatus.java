@@ -5,7 +5,7 @@ package com.study.springmvc.common.constant.user;
  * 注：删除状态的用户直接移到历史账号表中
  * @author shibaomi
  */
-public enum UserState {
+public enum UserStatus {
 	/**
 	 * 可用
 	 */
