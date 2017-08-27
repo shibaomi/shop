@@ -230,5 +230,17 @@ CREATE TABLE `busi_brand` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品品牌';
 
+CREATE TABLE `sys_user_role_level` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '无意义主键',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
+  `user_level` varchar(30) DEFAULT NULL COMMENT '用户等级',
+  `user_role` varchar(30) DEFAULT NULL COMMENT '用户角色',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建人id',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上次修改时间',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '修改人id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色信息表';
+
 
 
